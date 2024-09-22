@@ -5,8 +5,12 @@
 #' @return TRUE if the table exists, FALSE otherwise.
 is_valid_table <- function(
   table_name = NULL,
+  schema = "public",
   conn = make_connection()
 ) {
   checkmate::assert_string(table_name)
-  table_name %in% get_table_list(conn = conn)
+  table_name %in% get_table_list(
+    schema = schema,
+    conn = conn
+  )
 }

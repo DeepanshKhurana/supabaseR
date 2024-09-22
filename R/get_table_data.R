@@ -21,7 +21,7 @@ get_table_data <- function(
 
   query_filter <- if (limit > 0) glue::glue("LIMIT {limit}") else ""
 
-  if (is_valid_table(table_name, conn)) {
+  if (is_valid_table(table_name, schema, conn)) {
     DBI::dbGetQuery(
       conn,
       glue::glue(

@@ -4,7 +4,7 @@
 \alias{is_valid_table}
 \title{Check if the table exists}
 \usage{
-is_valid_table(table_name = NULL, conn = make_connection())
+is_valid_table(table_name = NULL, schema = "public", conn = make_connection())
 }
 \arguments{
 \item{table_name}{The name of the table.}

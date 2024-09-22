@@ -1,10 +1,10 @@
 #' Get a list of tables in the schema
 #'
-#' @param table_schema The schema name.
+#' @param schema The schema name.
 #' @param conn A database connection object.
 #' @return A vector of table names.
 get_table_list <- function(
-  table_schema = "public",
+  schema = "public",
   conn = make_connection()
 ) {
   DBI::dbGetQuery(
@@ -13,7 +13,7 @@ get_table_list <- function(
       "
         SELECT table_name
         FROM information_schema.tables
-        WHERE table_schema = {table_schema}
+        WHERE table_schema = {schema}
         AND table_type = 'BASE TABLE';
       ",
       .con = conn

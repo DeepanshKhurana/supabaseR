@@ -21,7 +21,7 @@ put_table_row <- function(
     combine = "and"
   )
 
-  if (is_valid_table(table_name, conn)) {
+  if (is_valid_table(table_name, schema, conn)) {
     table_schema <- get_table_schema(table_name)
     columns <- filter_columns(table_schema, is_update)
 

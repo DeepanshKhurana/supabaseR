@@ -21,7 +21,7 @@ delete_table_row <- function(
     combine = "and"
   )
 
-  if (is_valid_table(table_name, conn)) {
+  if (is_valid_table(table_name, schema, conn)) {
     delete_query <- glue::glue(
       "
         DELETE FROM {schema}.{table_name}

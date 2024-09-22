@@ -17,7 +17,7 @@ get_latest_key <- function(
     combine = "and"
   )
 
-  if (is_valid_table(table_name, conn)) {
+  if (is_valid_table(table_name, schema, conn)) {
     latest_key_query <- glue::glue(
       "
         SELECT {id_column}

@@ -15,7 +15,7 @@ get_table_schema <- function(
     checkmate::check_string(schema),
     combine = "and"
   )
-  if (is_valid_table(table_name, conn)) {
+  if (is_valid_table(table_name, schema, conn)) {
     schema_query <- glue::glue_sql(
       "
         SELECT column_name, data_type

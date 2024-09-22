@@ -13,7 +13,7 @@ empty_table <- function(
   checkmate::assert(
     checkmate::check_string(table_name)
   )
-  if (is_valid_table(table_name, conn)) {
+  if (is_valid_table(table_name, schema, conn)) {
     delete_query <- glue::glue(
       "
         TRUNCATE TABLE {schema}.{table_name}
