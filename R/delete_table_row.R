@@ -13,16 +13,16 @@ delete_table_row <- function(
   schema = "public",
   conn = make_connection()
 ) {
-  on.exit(dbDisconnect(conn))
-  assert(
-    check_string(table_name),
-    check_numeric(id_value),
-    check_string(id_column),
+  on.exit(DBI::dbDisconnect(conn))
+  checkmate::assert(
+    checkmate::check_string(table_name),
+    checkmate::check_numeric(id_value),
+    checkmate::check_string(id_column),
     combine = "and"
   )
 
   if (is_valid_table(table_name, conn)) {
-    delete_query <- glue(
+    delete_query <- glue::glue(
       "
         DELETE FROM {schema}.{table_name}
         WHERE {id_column} = {id_value}
@@ -31,7 +31,7 @@ delete_table_row <- function(
     dbExecute(conn, delete_query)
   } else {
     stop(
-      glue(
+      glue::glue(
         "Table '{table_name}' does not exist!"
       )
     )

@@ -9,12 +9,12 @@ empty_table <- function(
   schema = "public",
   conn = make_connection()
 ) {
-  on.exit(dbDisconnect(conn))
-  assert(
-    check_string(table_name)
+  on.exit(DBI::dbDisconnect(conn))
+  checkmate::assert(
+    checkmate::check_string(table_name)
   )
   if (is_valid_table(table_name, conn)) {
-    delete_query <- glue(
+    delete_query <- glue::glue(
       "
         TRUNCATE TABLE {schema}.{table_name}
       "
@@ -22,7 +22,7 @@ empty_table <- function(
     dbExecute(conn, delete_query)
   } else {
     stop(
-      glue(
+      glue::glue(
         "Table '{table_name}' does not exist!"
       )
     )

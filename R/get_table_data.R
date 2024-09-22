@@ -19,7 +19,7 @@ get_table_data <- function(
     combine = "and"
   )
 
-  query_filter <- if (limit > 0) glue("LIMIT {limit}") else ""
+  query_filter <- if (limit > 0) glue::glue("LIMIT {limit}") else ""
 
   if (is_valid_table(table_name, conn)) {
     DBI::dbGetQuery(

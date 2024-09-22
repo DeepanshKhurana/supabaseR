@@ -13,11 +13,11 @@ put_table_row <- function(
   schema = "public",
   conn = make_connection()
 ) {
-  on.exit(dbDisconnect(conn))
-  assert(
-    check_string(table_name),
-    check_list(input_list),
-    check_logical(is_update),
+  on.exit(DBI::dbDisconnect(conn))
+  checkmate::assert(
+    checkmate::check_string(table_name),
+    checkmate::check_list(input_list),
+    checkmate::check_logical(is_update),
     combine = "and"
   )
 
@@ -93,6 +93,6 @@ put_table_row <- function(
 
     dbExecute(conn, query)
   } else {
-    stop(glue("Table '{table_name}' does not exist!"))
+    stop(glue::glue("Table '{table_name}' does not exist!"))
   }
 }
