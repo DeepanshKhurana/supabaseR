@@ -1,0 +1,10 @@
+Package: supabaseR
+Title: CRUD utils in R for Supabase
+Version: 0.0.0.9000
+Authors@R: 
+    person("Deepansh", "Khurana", , "deepanshkhurana@outlook.com", role = c("aut", "cre"))
+Description: supabaseR is an open-source package, designed to be as basic as possible to help with CRUD utils in R for Supabase.
+License: `use_mit_license()`
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

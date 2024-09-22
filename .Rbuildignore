@@ -1,0 +1,4 @@
+^renv$
+^renv\.lock$
+^supabaseR\.Rproj$
+^\.Rproj\.user$
