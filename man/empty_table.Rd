@@ -4,9 +4,9 @@
 \alias{empty_table}
 \title{Delete all rows from table}
 \usage{
-empty_table(table_name = NULL, schema = "hrafnagud", conn = make_connection())
+empty_table(table_name = NULL, schema = "public", conn = make_connection())
 
-empty_table(table_name = NULL, schema = "hrafnagud", conn = make_connection())
+empty_table(table_name = NULL, schema = "public", conn = make_connection())
 }
 \arguments{
 \item{table_name}{The name of the table.}

@@ -4,7 +4,7 @@
 #' @param conn A database connection object.
 #' @return A vector of table names.
 get_table_list <- function(
-  table_schema = "hrafnagud",
+  table_schema = "public",
   conn = make_connection()
 ) {
   DBI::dbGetQuery(

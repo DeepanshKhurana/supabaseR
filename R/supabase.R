@@ -6,7 +6,7 @@
 #' @export
 empty_table <- function(
     table_name = NULL,
-    schema = "hrafnagud",
+    schema = "public",
     conn = make_connection()
 ) {
   on.exit(dbDisconnect(conn))

@@ -10,7 +10,7 @@ put_table_row <- function(
   table_name = NULL,
   input_list = list(),
   is_update = FALSE,
-  schema = "hrafnagud",
+  schema = "public",
   conn = make_connection()
 ) {
   on.exit(dbDisconnect(conn))

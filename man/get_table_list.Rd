@@ -4,7 +4,7 @@
 \alias{get_table_list}
 \title{Get a list of tables in the schema}
 \usage{
-get_table_list(table_schema = "hrafnagud", conn = make_connection())
+get_table_list(table_schema = "public", conn = make_connection())
 }
 \arguments{
 \item{table_schema}{The schema name.}

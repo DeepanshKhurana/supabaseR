@@ -1,5 +1,3 @@
-# supabaseR
+# supabaseR (development version)
 
-## 0.0.0.9000
-
-* Initial version with basic CRUD operations
+* Add basic functions for CRUD utils
