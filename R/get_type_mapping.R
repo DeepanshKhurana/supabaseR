@@ -2,22 +2,22 @@
 #' @return A named list mapping R types to PostgreSQL types
 get_type_mapping <- function() {
   list(
-    "smallint" = "as.numeric",    # int2
-    "integer" = "as.integer",     # int4
-    "bigint" = "as.numeric",      # int8
-    "real" = "as.numeric",        # float4
-    "double precision" = "as.numeric", # float8
-    "numeric" = "as.numeric",     # numeric
-    "json" = "jsonlite::fromJSON", # json
-    "jsonb" = "jsonlite::fromJSON", # jsonb
-    "text" = "as.character",      # text
-    "character varying" = "as.character", # varchar
-    "uuid" = "as.character",      # uuid
-    "date" = "as.Date",           # date
-    "time without time zone" = "hms::as_hms", # time
-    "time with time zone" = "hms::as_hms",    # timetz
-    "timestamp without time zone" = "as.POSIXct", # timestamp
-    "timestamp with time zone" = "as.POSIXct",    # timestamptz
-    "boolean" = "as.logical"      # bool
+    "smallint" = "as.numeric",
+    "integer" = "as.integer",
+    "bigint" = "as.numeric",
+    "real" = "as.numeric",
+    "double precision" = "as.numeric",
+    "numeric" = "as.numeric",
+    "json" = "as.character",
+    "jsonb" = "as.character",
+    "text" = "as.character",
+    "character varying" = "as.character",
+    "uuid" = "as.character",
+    "date" = "as.Date",
+    "time without time zone" = "as.character",
+    "time with time zone" = "as.character",
+    "timestamp without time zone" = "as.character",
+    "timestamp with time zone" = "as.character",
+    "boolean" = "as.logical"
   )
 }

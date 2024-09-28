@@ -5,9 +5,6 @@
 #' @param is_update Whether the operation is an update.
 #' @param schema The schema name.
 #' @param conn A database connection object.
-#' @importFrom jsonlite fromJSON
-#' @importFrom jsonlite toJSON
-#' @importFrom hms as_hms
 #' @export
 put_table_row <- function(
   table_name = NULL,
@@ -46,15 +43,23 @@ put_table_row <- function(
       function(index) {
         tryCatch(
           expr = {
-            FUN <- map_sql_to_r(
+            FUN <- map_sql_to_r( # nolint
               table_schema$data_type[index] |>
                 unlist()
             ) |>
               get()
-            FUN(
-              input_list[index] |>
-                as.character()
-            )
+            if (identical(FUN, as.Date)) { # nolint
+              FUN( # nolint
+                input_list[index] |>
+                  as.character(),
+                format = "%Y-%m-%d"
+              )
+            } else {
+              FUN(
+                input_list[index] |>
+                  as.character()
+              )
+            }
           }
         )
       }
@@ -62,14 +67,29 @@ put_table_row <- function(
 
     values <- lapply(
       input_list,
-      function(x) dbQuoteLiteral(conn, x)
+      function(value) {
+        if (inherits(value, "Date")) {
+          DBI::dbQuoteLiteral(conn, value)
+        } else if (is.character(value)) {
+          if (gsub('"|\'', "", value) == "NA") {
+            DBI::dbQuoteLiteral(conn, "")
+          } else {
+            DBI::dbQuoteLiteral(conn, value)
+          }
+        } else if (is.numeric(as.numeric(value))) {
+          as.numeric(value)
+        } else {
+          print("Error occurred while parsing: {value}")
+          stop("Check put_table_row()!")
+        }
+      }
     )
 
     if (is_update) {
-      set_clause <- glue_sql_collapse(
+      set_clause <- glue::glue_sql_collapse(
         mapply(
           function(col, val) {
-            glue_sql(
+            glue::glue_sql(
               "{`col`} = {val}",
               .con = conn
             )
@@ -80,17 +100,17 @@ put_table_row <- function(
         ),
         sep = ", "
       )
-      query <- glue_sql(
+      query <- glue::glue_sql(
         "UPDATE {`schema`}.{`table_name`}
          SET {set_clause}
          WHERE id = {input_list[[1]]}",
         .con = conn
       )
     } else {
-      query <- glue_sql(
+      query <- glue::glue_sql(
         "INSERT INTO {`schema`}.{`table_name`}
-         ({glue_sql_collapse(`columns`, sep = ', ')})
-         VALUES ({glue_sql_collapse(values, sep = ', ')})",
+         ({glue::glue_sql_collapse(`columns`, sep = ', ')})
+         VALUES ({glue::glue_sql_collapse(values, sep = ', ')})",
         .con = conn
       )
     }
