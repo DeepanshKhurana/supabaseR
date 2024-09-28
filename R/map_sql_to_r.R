@@ -5,7 +5,7 @@
 #' @return Corresponding R data type as a character string.
 map_sql_to_r <- function(
   data_type,
-  type_mapping = config::get("type_mapping")
+  type_mapping = get_type_mapping()
 ) {
   matched_type <- type_mapping[[data_type]]
   if (is.null(matched_type)) {
@@ -13,3 +13,4 @@ map_sql_to_r <- function(
   }
   matched_type
 }
+
