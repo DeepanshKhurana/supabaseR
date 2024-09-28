@@ -5,6 +5,9 @@
 #' @param is_update Whether the operation is an update.
 #' @param schema The schema name.
 #' @param conn A database connection object.
+#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite toJSON
+#' @importFrom hms as_hms
 #' @export
 put_table_row <- function(
   table_name = NULL,
@@ -46,7 +49,8 @@ put_table_row <- function(
             FUN <- map_sql_to_r(
               table_schema$data_type[index] |>
                 unlist()
-            )
+            ) |>
+              get()
             FUN(
               input_list[index] |>
                 as.character()
