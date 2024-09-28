@@ -2,6 +2,7 @@
 
 export(delete_table_row)
 export(empty_table)
+export(get_cron_time)
 export(get_table_data)
 export(get_table_query)
 export(get_table_schema)
