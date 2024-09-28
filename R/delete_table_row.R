@@ -28,7 +28,7 @@ delete_table_row <- function(
         WHERE {id_column} = {id_value}
       "
     )
-    dbExecute(conn, delete_query)
+    DBI::dbExecute(conn, delete_query)
   } else {
     stop(
       glue::glue(

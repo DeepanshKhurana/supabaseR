@@ -22,7 +22,7 @@ put_table_row <- function(
   )
 
   if (is_valid_table(table_name, schema, conn)) {
-    table_schema <- get_table_schema(table_name)
+    table_schema <- get_table_schema(table_name, schema)
     columns <- filter_columns(table_schema, is_update)
 
     if (!is_update) {
@@ -91,7 +91,7 @@ put_table_row <- function(
       )
     }
 
-    dbExecute(conn, query)
+    DBI::dbExecute(conn, query)
   } else {
     stop(glue::glue("Table '{table_name}' does not exist!"))
   }
