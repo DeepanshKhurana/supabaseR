@@ -10,7 +10,7 @@ put_table_row <- function(
   table_name = NULL,
   input_list = list(),
   is_update = FALSE,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   on.exit(DBI::dbDisconnect(conn))

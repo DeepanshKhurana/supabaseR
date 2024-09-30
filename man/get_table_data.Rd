@@ -7,7 +7,7 @@
 get_table_data(
   table_name = NULL,
   limit = 0,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 )
 }

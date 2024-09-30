@@ -7,7 +7,7 @@
 #' @export
 get_table_schema <- function(
   table_name = NULL,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   checkmate::assert(

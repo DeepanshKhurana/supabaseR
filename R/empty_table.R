@@ -6,7 +6,7 @@
 #' @export
 empty_table <- function(
   table_name = NULL,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   on.exit(DBI::dbDisconnect(conn))

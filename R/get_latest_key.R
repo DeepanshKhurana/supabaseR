@@ -8,7 +8,7 @@
 get_latest_key <- function(
   table_name = NULL,
   id_column = "id",
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   checkmate::assert(

@@ -12,7 +12,7 @@ get_table_query <- function(
   table_name = NULL,
   columns = list("*"),
   filter_query = list(),
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   on.exit(DBI::dbDisconnect(conn))

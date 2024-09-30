@@ -5,7 +5,7 @@
 #' @return TRUE if the table exists, FALSE otherwise.
 is_valid_table <- function(
   table_name = NULL,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   checkmate::assert_string(table_name)

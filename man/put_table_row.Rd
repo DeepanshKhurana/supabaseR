@@ -8,7 +8,7 @@ put_table_row(
   table_name = NULL,
   input_list = list(),
   is_update = FALSE,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 )
 }

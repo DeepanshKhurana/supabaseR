@@ -10,7 +10,7 @@ delete_table_row <- function(
   table_name = NULL,
   id_value = NULL,
   id_column = "id",
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   on.exit(DBI::dbDisconnect(conn))

@@ -8,7 +8,7 @@ get_table_query(
   table_name = NULL,
   columns = list("*"),
   filter_query = list(),
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 )
 }

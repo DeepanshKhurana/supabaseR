@@ -7,7 +7,8 @@ read_supabase_creds <- function() {
     port = 6543,
     dbname = Sys.getenv("SUPABASE_DBNAME"),
     user = Sys.getenv("SUPABASE_USER"),
-    password = Sys.getenv("SUPABASE_PASSWORD")
+    password = Sys.getenv("SUPABASE_PASSWORD"),
+    schema = Sys.getenv("SUPABASE_SCHEMA")
   )
   if (any(sapply(creds, nchar) == 0)) {
     stop(generate_error())

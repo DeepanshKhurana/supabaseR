@@ -9,7 +9,7 @@
 get_table_data <- function(
   table_name = NULL,
   limit = 0,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 ) {
   on.exit(DBI::dbDisconnect(conn))

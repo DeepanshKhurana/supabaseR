@@ -4,7 +4,10 @@
 \alias{get_table_list}
 \title{Get a list of tables in the schema}
 \usage{
-get_table_list(schema = "public", conn = make_connection())
+get_table_list(
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
+  conn = make_connection()
+)
 }
 \arguments{
 \item{schema}{The schema name.}

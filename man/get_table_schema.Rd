@@ -6,7 +6,7 @@
 \usage{
 get_table_schema(
   table_name = NULL,
-  schema = "public",
+  schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
 )
 }

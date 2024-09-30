@@ -4,7 +4,7 @@
 \alias{map_sql_to_r}
 \title{Map SQL data types to R data types}
 \usage{
-map_sql_to_r(data_type, type_mapping = config::get("type_mapping"))
+map_sql_to_r(data_type, type_mapping = get_type_mapping())
 }
 \arguments{
 \item{data_type}{SQL data type as a character string.}
