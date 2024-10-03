@@ -5,7 +5,6 @@
 \title{Query data from a table with a freeform text query}
 \usage{
 get_freeform_table_query(
-  table_name = NULL,
   query = NULL,
   schema = Sys.getenv("SUPABASE_SCHEMA"),
   conn = make_connection()
