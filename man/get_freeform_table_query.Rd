@@ -4,16 +4,10 @@
 \alias{get_freeform_table_query}
 \title{Query data from a table with a freeform text query}
 \usage{
-get_freeform_table_query(
-  query = NULL,
-  schema = Sys.getenv("SUPABASE_SCHEMA"),
-  conn = make_connection()
-)
+get_freeform_table_query(query = NULL, conn = make_connection())
 }
 \arguments{
 \item{query}{The custom query as text}
-
-\item{schema}{The schema name.}
 
 \item{conn}{A database connection object.}
 }
