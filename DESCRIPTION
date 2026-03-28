@@ -4,17 +4,17 @@ Version: 0.0.0.9003
 Authors@R: 
     person("Deepansh", "Khurana", , "deepanshkhurana@outlook.com", role = c("aut", "cre"))
 Description: supabaseR is an open-source package, designed to be as basic as possible to help with CRUD utils in R for Supabase.
-License: `use_mit_license()`
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     checkmate,
+    cli,
     DBI,
     glue,
-    RPostgres,
-    config,
-    jsonlite
+    RPostgres
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 Config/testthat/edition: 3

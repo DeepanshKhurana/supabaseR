@@ -2,3 +2,4 @@
 ^renv\.lock$
 ^supabaseR\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
