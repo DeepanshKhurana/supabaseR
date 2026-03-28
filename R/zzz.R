@@ -15,7 +15,9 @@
   if (all(nchar(Sys.getenv(api_vars)) > 0)) {
     .sb_env$api_available <- TRUE
   }
+}
 
+.onAttach <- function(libname, pkgname) {
   packageStartupMessage(startup_message())
 }
 
