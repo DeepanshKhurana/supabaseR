@@ -27,12 +27,12 @@ SUPABASE_SCHEMA=public
 
 ```r
 library(supabaseR)
-#> supabaseR v...
-#>   DBI Backend: ✔
-#>   API Backend: ✖
+> supabaseR v...
+>   DBI Backend: ✔
+>   API Backend: ✖
 
 sb_db_connect()
-#> ✔ Connected to db.xxx.supabase.co
+> ✔ Connected to db.xxx.supabase.co
 
 # Read
 sb_db_tables()
@@ -50,19 +50,19 @@ sb_db_query(sql = "SELECT * FROM public.users WHERE id = 1")
 
 # Write
 sb_db_insert("users", data.frame(name = "Alice"))
-#> ✔ Inserted 1 row into users
+> ✔ Inserted 1 row into users
 
 sb_db_update("users", data = list(name = "Bob"), where = list(id = 1))
-#> ✔ Updated 1 row in users
+> ✔ Updated 1 row in users
 
 sb_db_upsert("users", data.frame(id = 1, name = "Charlie"), conflict_columns = "id")
-#> ✔ Upserted 1 row into users
+> ✔ Upserted 1 row into users
 
 sb_db_delete("users", where = list(id = 1))
-#> ✔ Deleted 1 row from users
+> ✔ Deleted 1 row from users
 
 sb_db_disconnect()
-#> ✔ Disconnected
+> ✔ Disconnected
 ```
 
 ## Operators
@@ -72,8 +72,8 @@ Use nested lists in `where` for operators beyond `=`:
 | Operator | Example | SQL |
 |----------|---------|-----|
 | `eq` | `list(id = list(eq = 1))` | `id = 1` |
-| `neq` | `list(id = list(neq = 1))` | `id <> 1` |
-| `gt` | `list(age = list(gt = 18))` | `age > 18` |
+| `neq` | `list(id = list(neq = 1))` | `id <>1` |
+| `gt` | `list(age = list(gt = 18))` | `age >18` |
 | `gte` | `list(age = list(gte = 18))` | `age >= 18` |
 | `lt` | `list(age = list(lt = 18))` | `age < 18` |
 | `lte` | `list(age = list(lte = 18))` | `age <= 18` |
