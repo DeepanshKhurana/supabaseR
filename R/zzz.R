@@ -1,7 +1,9 @@
 .sb_env <- new.env(parent = emptyenv())
 
-.onLoad <- function(libname, pkgname) {
-
+.onLoad <- function(
+  libname,
+  pkgname
+) {
   .sb_env$dbi_available <- FALSE
   .sb_env$api_available <- FALSE
   .sb_env$conn <- NULL
@@ -17,7 +19,10 @@
   }
 }
 
-.onAttach <- function(libname, pkgname) {
+.onAttach <- function(
+  libname,
+  pkgname
+) {
   packageStartupMessage(startup_message())
 }
 
@@ -40,7 +45,9 @@ startup_message <- function() {
   )
 }
 
-.onUnload <- function(libpath) {
+.onUnload <- function(
+  libpath
+) {
   if (!is.null(.sb_env$conn)) {
     try(DBI::dbDisconnect(.sb_env$conn), silent = TRUE)
   }

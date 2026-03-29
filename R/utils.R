@@ -12,6 +12,11 @@
 #'
 #' Supported operators: eq, neq, gt, gte, lt, lte, like, ilike, in, is
 build_where <- function(where, conn, include_keyword = TRUE) {
+build_where <- function(
+  where,
+  conn,
+  include_keyword = TRUE
+) {
   if (is.null(where) || length(where) == 0) {
     return(DBI::SQL(""))
   }
