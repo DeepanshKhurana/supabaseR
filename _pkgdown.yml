@@ -1,0 +1,58 @@
+url: https://deepanshkhurana.github.io/supabaseR/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fab fa-github
+      href: https://github.com/DeepanshKhurana/supabaseR
+
+reference:
+  - title: Connection
+    desc: Connect and manage Supabase connections
+    contents:
+      - sb_connect
+      - sb_disconnect
+      - sb_status
+      - sb_db_connect
+      - sb_db_disconnect
+      - sb_db_status
+      - sb_db_creds
+
+  - title: Read Operations
+    desc: Query and read data from tables
+    contents:
+      - sb_read
+      - sb_query
+      - sb_tables
+      - sb_schema
+      - sb_table_exists
+      - sb_db_read
+      - sb_db_query
+      - sb_db_tables
+      - sb_db_schema
+      - sb_db_table_exists
+
+  - title: Write Operations
+    desc: Insert, update, delete, and upsert data
+    contents:
+      - sb_insert
+      - sb_update
+      - sb_delete
+      - sb_upsert
+      - sb_truncate
+      - sb_db_insert
+      - sb_db_update
+      - sb_db_delete
+      - sb_db_upsert
+      - sb_db_truncate
+
+authors:
+  Deepansh Khurana:
+    href: https://github.com/deepanshkhurana
