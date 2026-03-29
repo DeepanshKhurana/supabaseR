@@ -1,0 +1,252 @@
+/* ── Supabase-themed pkgdown site ──────────────────────────────── */
+/* Palette:
+   Dark bg:      #1C1C1C / #090909
+   Green accent:  #3ECF8E
+   Green dark:    #249361
+   Text light:    #EDEDED
+   Text muted:    #8F8F8F
+   Surface:       #242424
+   Border:        #2E2E2E
+*/
+
+/* ── Base ── */
+body {
+  background-color: #111111;
+  color: #EDEDED;
+}
+
+/* ── Navbar ── */
+.navbar {
+  background-color: #1C1C1C !important;
+  border-bottom: 1px solid #2E2E2E;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand,
+.navbar-dark .navbar-brand {
+  color: #3ECF8E !important;
+  font-weight: 700;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar .nav-link {
+  color: #EDEDED !important;
+  transition: color 0.2s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: #3ECF8E !important;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #3ECF8E !important;
+}
+
+/* ── Main content area ── */
+main, .container, .container-fluid {
+  background-color: #111111;
+}
+
+.page-header {
+  border-bottom-color: #2E2E2E;
+}
+
+/* ── Headings ── */
+h1, h2, h3, h4, h5, h6,
+.page-header h1 {
+  color: #EDEDED;
+}
+
+/* ── Links ── */
+a {
+  color: #3ECF8E;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #59DFAB;
+}
+
+/* ── Code blocks ── */
+pre, pre code {
+  background-color: #1C1C1C !important;
+  color: #EDEDED;
+  border: 1px solid #2E2E2E;
+  border-radius: 8px;
+}
+
+code {
+  color: #3ECF8E;
+  background-color: #1C1C1C;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+
+pre {
+  padding: 1em;
+}
+
+/* ── Sidebar / TOC ── */
+.contents h2, .ref-index h2 {
+  color: #3ECF8E;
+  border-bottom: 1px solid #2E2E2E;
+}
+
+.template-reference-index .ref-index .ref-index-section {
+  border-bottom-color: #2E2E2E;
+}
+
+/* ── Cards (BS5 pkgdown) ── */
+.card {
+  background-color: #1C1C1C;
+  border: 1px solid #2E2E2E;
+  border-radius: 8px;
+}
+
+.card-header {
+  background-color: #242424;
+  border-bottom-color: #2E2E2E;
+  color: #EDEDED;
+}
+
+.card-body {
+  color: #EDEDED;
+}
+
+/* ── Tables ── */
+.table {
+  color: #EDEDED;
+  border-color: #2E2E2E;
+}
+
+.table thead th {
+  background-color: #1C1C1C;
+  border-bottom-color: #3ECF8E;
+  color: #3ECF8E;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(62, 207, 142, 0.04);
+}
+
+.table td, .table th {
+  border-color: #2E2E2E;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  background-color: #3ECF8E;
+  border-color: #3ECF8E;
+  color: #111111;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #249361;
+  border-color: #249361;
+  color: #FFFFFF;
+}
+
+/* ── Search ── */
+.form-control {
+  background-color: #242424;
+  border-color: #2E2E2E;
+  color: #EDEDED;
+}
+
+.form-control:focus {
+  background-color: #242424;
+  border-color: #3ECF8E;
+  color: #EDEDED;
+  box-shadow: 0 0 0 0.2rem rgba(62, 207, 142, 0.25);
+}
+
+/* ── Footer ── */
+footer, .pkgdown-footer {
+  background-color: #1C1C1C;
+  border-top: 1px solid #2E2E2E;
+  color: #8F8F8F;
+}
+
+footer a {
+  color: #3ECF8E;
+}
+
+/* ── Reference index descriptions ── */
+.ref-index td p, .ref-index dd {
+  color: #8F8F8F;
+}
+
+/* ── Dropdown menus ── */
+.dropdown-menu {
+  background-color: #242424;
+  border-color: #2E2E2E;
+}
+
+.dropdown-item {
+  color: #EDEDED;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(62, 207, 142, 0.1);
+  color: #3ECF8E;
+}
+
+/* ── Breadcrumbs & secondary text ── */
+.text-muted {
+  color: #8F8F8F !important;
+}
+
+/* ── Section description ── */
+.section p {
+  color: #C0C0C0;
+}
+
+/* ── Badges ── */
+.badge {
+  background-color: rgba(62, 207, 142, 0.15);
+  color: #3ECF8E;
+}
+
+/* ── HR ── */
+hr {
+  border-color: #2E2E2E;
+}
+
+/* ── Syntax highlighting overrides (dark) ── */
+.sourceCode .kw { color: #C792EA; }  /* keyword */
+.sourceCode .dt { color: #82AAFF; }  /* data type */
+.sourceCode .st { color: #C3E88D; }  /* string */
+.sourceCode .dv { color: #F78C6C; }  /* decimal value */
+.sourceCode .fu { color: #3ECF8E; }  /* function */
+.sourceCode .co { color: #676E95; }  /* comment */
+.sourceCode .op { color: #89DDFF; }  /* operator */
+.sourceCode .cn { color: #F78C6C; }  /* constant */
+.sourceCode .sc { color: #C3E88D; }  /* special char */
+
+/* ── Scrollbar (webkit) ── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1C1C1C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3E3E3E;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3ECF8E;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: rgba(62, 207, 142, 0.3);
+  color: #FFFFFF;
+}
