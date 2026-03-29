@@ -1,8 +1,8 @@
 # supabaseR
 
-R package for Supabase database operations. The package has a dual-API philosophy that uses DBI _and_ the Supabase API. For Db CRUD operations, the DBI functions take precedence if available. Otherwise, they fallback to the Supabase REST API. The goal is to allow users the flexibility to use both together. Additionally, in the future, we plan to bring about more features from Supabase into this package.
+The unnofficial "official" R package for Supabase operations. The package has a dual-API philosophy that uses DBI _and_ the Supabase API. For Db CRUD operations, the DBI functions take precedence if available. Otherwise, they fallback to the Supabase REST API. The goal is to allow users the flexibility to use both together. Additionally, in the future, we plan to bring about more features from Supabase into this package.
 
-The environment variables dictate if DBI, API or both are available on package load or on `sb_db_connect`.
+The environment variables dictate if DBI, API or both are available on package load.
 
 ## Installation
 

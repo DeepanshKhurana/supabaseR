@@ -5,6 +5,7 @@
 #' @param where A named list for WHERE clause. Supports operators via nested lists.
 #' @param schema The schema name
 #' @return Number of rows affected (invisibly)
+#' @example man/examples/sb_db_update.R
 #' @export
 sb_db_update <- function(
   table = NULL,

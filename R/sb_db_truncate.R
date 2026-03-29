@@ -3,6 +3,7 @@
 #' @param table The table name
 #' @param schema The schema name
 #' @return Invisible NULL
+#' @example man/examples/sb_db_truncate.R
 #' @export
 sb_db_truncate <- function(
   table = NULL,

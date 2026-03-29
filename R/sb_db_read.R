@@ -4,6 +4,7 @@
 #' @param limit Maximum rows to return (0 for all)
 #' @param schema The schema name
 #' @return A data frame with table data
+#' @example man/examples/sb_db_read.R
 #' @export
 sb_db_read <- function(
   table = NULL,

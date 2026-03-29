@@ -9,6 +9,7 @@
 #' @param sql Raw SQL query (DBI backend only)
 #' @param schema The schema name
 #' @return A data frame with query results
+#' @example man/examples/sb_db_query.R
 #' @export
 sb_db_query <- function(
   table = NULL,

@@ -7,6 +7,7 @@
 #' @param conflict_columns Column(s) to check for conflicts (e.g., primary key)
 #' @param schema The schema name
 #' @return Number of rows affected (invisibly)
+#' @example man/examples/sb_db_upsert.R
 #' @export
 sb_db_upsert <- function(
   table = NULL,

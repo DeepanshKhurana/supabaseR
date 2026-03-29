@@ -2,6 +2,7 @@
 #'
 #' @param schema The schema name
 #' @return Invisible connection object
+#' @example man/examples/sb_db_connect.R
 #' @export
 sb_db_connect <- function(
   schema = Sys.getenv("SUPABASE_SCHEMA")

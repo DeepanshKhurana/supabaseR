@@ -2,6 +2,7 @@
 #'
 #' @param schema The schema name
 #' @return A character vector of table names
+#' @example man/examples/sb_db_tables.R
 #' @export
 sb_db_tables <- function(
   schema = get_schema()

@@ -4,6 +4,7 @@
 #' @param data A data frame of rows to insert
 #' @param schema The schema name
 #' @return Number of rows inserted (invisibly)
+#' @example man/examples/sb_db_insert.R
 #' @export
 sb_db_insert <- function(
   table = NULL,

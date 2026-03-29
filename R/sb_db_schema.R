@@ -3,6 +3,7 @@
 #' @param table The table name
 #' @param schema The schema name
 #' @return A data frame with column_name and data_type
+#' @example man/examples/sb_db_schema.R
 #' @export
 sb_db_schema <- function(
   table = NULL,
