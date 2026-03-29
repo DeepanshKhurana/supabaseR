@@ -12,3 +12,4 @@ The current schema name
 \description{
 Get the current schema
 }
+\keyword{internal}

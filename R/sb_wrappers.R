@@ -385,6 +385,7 @@ sb_truncate <- function(
 #' Get the active backend
 #'
 #' @return The backend name ("db" or "api")
+#' @keywords internal
 get_backend <- function() {
   if (is.null(.sb_env$backend)) {
     stop("Not connected. Call sb_connect() first.")

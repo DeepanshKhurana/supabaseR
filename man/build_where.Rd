@@ -29,3 +29,4 @@ Supports operators via nested lists:
 
 Supported operators: eq, neq, gt, gte, lt, lte, like, ilike, in, is
 }
+\keyword{internal}

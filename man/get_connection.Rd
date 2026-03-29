@@ -12,3 +12,4 @@ The current database connection
 \description{
 Get the current connection
 }
+\keyword{internal}

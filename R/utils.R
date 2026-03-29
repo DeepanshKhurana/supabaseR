@@ -11,7 +11,7 @@
 #' - `list(name = list(like = "A%"))` → `name LIKE 'A%'`
 #'
 #' Supported operators: eq, neq, gt, gte, lt, lte, like, ilike, in, is
-build_where <- function(where, conn, include_keyword = TRUE) {
+#' @keywords internal
 build_where <- function(
   where,
   conn,

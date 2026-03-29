@@ -45,6 +45,7 @@ sb_db_disconnect <- function() {
 #' Get the current connection
 #'
 #' @return The current database connection
+#' @keywords internal
 get_connection <- function() {
   if (is.null(.sb_env$conn)) {
     stop("Not connected. Call sb_db_connect() first.")
@@ -55,6 +56,7 @@ get_connection <- function() {
 #' Get the current schema
 #'
 #' @return The current schema name
+#' @keywords internal
 get_schema <- function() {
   if (is.null(.sb_env$schema)) {
     Sys.getenv("SUPABASE_SCHEMA")

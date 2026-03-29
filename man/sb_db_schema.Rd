@@ -17,3 +17,11 @@ A data frame with column_name and data_type
 \description{
 Get table schema
 }
+\examples{
+\dontrun{
+# Get column info for a table
+sb_db_schema("users")
+
+# Returns: column_name, data_type, is_nullable
+}
+}

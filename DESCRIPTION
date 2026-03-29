@@ -5,6 +5,8 @@ Authors@R:
     person("Deepansh", "Khurana", , "deepanshkhurana@outlook.com", role = c("aut", "cre"))
 Description: supabaseR is an open-source package, designed to be as basic as possible to help with CRUD utils in R for Supabase.
 License: MIT + file LICENSE
+URL: https://deepanshkhurana.github.io/supabaseR/, https://github.com/DeepanshKhurana/supabaseR
+BugReports: https://github.com/DeepanshKhurana/supabaseR/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

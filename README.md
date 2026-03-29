@@ -1,5 +1,10 @@
 # supabaseR
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/deepanshkhurana/supabaseR/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/deepanshkhurana/supabaseR/actions/workflows/R-CMD-check.yml)
+[![pkgdown](https://github.com/deepanshkhurana/supabaseR/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/deepanshkhurana/supabaseR/actions/workflows/pkgdown.yml)
+<!-- badges: end -->
+
 The unnofficial "official" R package for Supabase operations. The package has a dual-API philosophy that uses DBI _and_ the Supabase API. For Db CRUD operations, the DBI functions take precedence if available. Otherwise, they fallback to the Supabase REST API. The goal is to allow users the flexibility to use both together. Additionally, in the future, we plan to bring about more features from Supabase into this package.
 
 The environment variables dictate if DBI, API or both are available on package load.
@@ -84,6 +89,26 @@ Use nested lists in `where` for operators beyond `=`:
 
 ## Functions
 
+### Unified API (auto-dispatches to DBI or REST)
+
+| Function | Description |
+|----------|-------------|
+| `sb_connect()` | Connect (auto-detects backend) |
+| `sb_disconnect()` | Disconnect |
+| `sb_status()` | Connection status |
+| `sb_tables()` | List tables |
+| `sb_table_exists()` | Check if table exists |
+| `sb_schema()` | Get table schema |
+| `sb_read()` | Read table data |
+| `sb_query()` | Query with filters or raw SQL |
+| `sb_insert()` | Insert rows |
+| `sb_update()` | Update rows |
+| `sb_upsert()` | Insert or update rows |
+| `sb_delete()` | Delete rows |
+| `sb_truncate()` | Truncate table |
+
+### DBI Backend
+
 | Function | Description |
 |----------|-------------|
 | `sb_db_connect()` | Connect to Supabase |
@@ -102,7 +127,8 @@ Use nested lists in `where` for operators beyond `=`:
 
 ## Supported Features
 - [x] CRUD via DBI (`sb_db_*`)
-- [ ] CRUD via REST (`sb_db_*`)
+- [x] Unified API with auto-dispatch (`sb_*`)
+- [ ] CRUD via REST (`sb_api_*`)
 - [ ] Authentication (`sb_auth_*`)
 - [ ] Storage (`sb_storage_*`)
 - [ ] Realtime subscriptions (`sb_realtime_*`)
