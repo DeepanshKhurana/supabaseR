@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-03-30T07:08Z
+last_built: 2026-03-30T07:33Z
 urls:
   reference: https://deepanshkhurana.github.io/supabaseR/reference
   article: https://deepanshkhurana.github.io/supabaseR/articles
