@@ -13,7 +13,7 @@
     .sb_env$dbi_available <- TRUE
   }
 
-  api_vars <- c("SUPABASE_URL", "SUPABASE_ANON_KEY")
+  api_vars <- c("SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_ROLE_KEY")
   if (all(nchar(Sys.getenv(api_vars)) > 0)) {
     .sb_env$api_available <- TRUE
   }
