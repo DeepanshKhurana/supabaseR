@@ -10,8 +10,8 @@ sb_api_read <- function(table = NULL, where = NULL, limit = NULL) {
   if (!.sb_env$api_available) {
     cli::cli_abort(
       c(
-         "x" = "API credentials not available.",
-         "i" = "Please set environment variables: SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_ROLE_KEY."
+        "x" = "API credentials not available.",
+        "i" = "Set SUPABASE_URL, SUPABASE_ANON_KEY, and SUPABASE_ROLE_KEY."
       ),
       call. = FALSE
     )
