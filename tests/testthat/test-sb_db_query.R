@@ -11,7 +11,6 @@ describe("sb_db_query()", {
 
   it("should accept columns, where, and limit parameters", {
     .sb_env$conn <- NULL
-    # All these should fail on connection, not validation
     expect_snapshot(
       sb_db_query(
         table = "orders",

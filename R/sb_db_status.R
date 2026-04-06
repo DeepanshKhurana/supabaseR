@@ -1,11 +1,10 @@
-#' Check available backends
+#' Check DBI backend status
 #'
-#' @return A list with backend availability
+#' @return A list with DBI connection info
 #' @export
 sb_db_status <- function() {
   list(
-    dbi = .sb_env$dbi_available,
-    api = .sb_env$api_available,
-    connected = !is.null(.sb_env$conn)
+    connected = !is.null(.sb_env$conn),
+    schema = get_schema()
   )
 }

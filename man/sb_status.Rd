@@ -7,8 +7,10 @@
 sb_status()
 }
 \value{
-List with connection info
+A list with \code{dbi}, \code{api}, \code{backend}, and
+\code{schema} entries
 }
 \description{
-Get connection status
+Returns availability and connection state for both backends, the active
+backend (if \code{sb_connect()} has been called), and the current schema.
 }

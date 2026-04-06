@@ -36,42 +36,73 @@ navbar:
 reference:
   - title: Connection
     desc: Connect and manage Supabase connections
+  - subtitle: Unified API
+    desc: Auto-dispatches to DBI or REST based on available credentials
     contents:
       - sb_connect
       - sb_disconnect
       - sb_status
+  - subtitle: DBI Backend
+    desc: Direct PostgreSQL connection via DBI
+    contents:
       - sb_db_connect
       - sb_db_disconnect
       - sb_db_status
       - sb_db_creds
+  - subtitle: REST API Backend
+    desc: Supabase REST API via PostgREST
+    contents:
+      - sb_api_connect
+      - sb_api_disconnect
+      - sb_api_status
 
   - title: Read Operations
     desc: Query and read data from tables
+  - subtitle: Unified API
     contents:
       - sb_read
       - sb_query
       - sb_tables
       - sb_schema
       - sb_table_exists
+  - subtitle: DBI Backend
+    contents:
       - sb_db_read
       - sb_db_query
       - sb_db_tables
       - sb_db_schema
       - sb_db_table_exists
+  - subtitle: REST API Backend
+    contents:
+      - sb_api_read
+      - sb_api_query
+      - sb_api_tables
+      - sb_api_schema
+      - sb_api_table_exists
 
   - title: Write Operations
     desc: Insert, update, delete, and upsert data
+  - subtitle: Unified API
     contents:
       - sb_insert
       - sb_update
       - sb_delete
       - sb_upsert
       - sb_truncate
+  - subtitle: DBI Backend
+    contents:
       - sb_db_insert
       - sb_db_update
       - sb_db_delete
       - sb_db_upsert
       - sb_db_truncate
+  - subtitle: REST API Backend
+    contents:
+      - sb_api_insert
+      - sb_api_update
+      - sb_api_delete
+      - sb_api_upsert
+      - sb_api_truncate
 
 authors:
   Deepansh Khurana:

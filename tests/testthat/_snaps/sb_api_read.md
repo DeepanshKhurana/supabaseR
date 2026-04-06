@@ -3,7 +3,7 @@
     Code
       sb_api_read("test_endpoint")
     Condition
-      Error in `sb_api_read()`:
+      Error in `.check_api_available()`:
       x API credentials not available.
-      i Set SUPABASE_URL, SUPABASE_ANON_KEY, and SUPABASE_ROLE_KEY.
+      i Call `sb_api_connect()` or set `SUPABASE_URL` and at least one of `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_ANON_KEY`, `SUPABASE_SECRET_KEY`, or `SUPABASE_ROLE_KEY`.
 

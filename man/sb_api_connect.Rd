@@ -6,17 +6,52 @@
 \usage{
 sb_api_connect(
   url = Sys.getenv("SUPABASE_URL"),
-  key = Sys.getenv("SUPABASE_ANON_KEY")
+  key = Sys.getenv(if (nchar(Sys.getenv("SUPABASE_PUBLISHABLE_KEY")) > 0)
+    "SUPABASE_PUBLISHABLE_KEY" else "SUPABASE_ANON_KEY"),
+  secret_key = Sys.getenv(if (nchar(Sys.getenv("SUPABASE_SECRET_KEY")) > 0)
+    "SUPABASE_SECRET_KEY" else "SUPABASE_ROLE_KEY")
 )
 }
 \arguments{
 \item{url}{The Supabase URL (default: from SUPABASE_URL env var)}
 
-\item{key}{The Supabase API key (default: from SUPABASE_ANON_KEY env var)}
+\item{key}{The Supabase API key. Accepts the legacy \code{anon} JWT key or the
+new publishable key (\code{sb_publishable_...}). Optional when \code{secret_key} is
+provided.
+(default: from SUPABASE_PUBLISHABLE_KEY or SUPABASE_ANON_KEY env var)}
+
+\item{secret_key}{The Supabase secret key. Accepts the legacy \code{service_role}
+JWT key or the new secret key (\code{sb_secret_...}). When present it is used
+for all requests, bypassing Row Level Security.
+(default: from SUPABASE_SECRET_KEY or SUPABASE_ROLE_KEY env var)}
 }
 \value{
 Invisible list with API credentials
 }
 \description{
-Connect to Supabase via REST API
+At least one key must be supplied alongside the URL. When both \code{key} and
+\code{secret_key} are available, the secret key is always preferred for requests
+because it has higher privileges (bypasses Row Level Security).
+}
+\examples{
+\dontrun{
+# Connect using environment variables (SUPABASE_URL + SUPABASE_PUBLISHABLE_KEY)
+sb_api_connect()
+
+# Connect with a secret key only (bypasses Row Level Security)
+sb_api_connect(
+  url = "https://xxx.supabase.co",
+  secret_key = "sb_secret_..."
+)
+
+# Connect with both publishable and secret keys
+sb_api_connect(
+  url = "https://xxx.supabase.co",
+  key = "sb_publishable_...",
+  secret_key = "sb_secret_..."
+)
+
+# Disconnect when done
+sb_api_disconnect()
+}
 }
