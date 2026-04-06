@@ -1,10 +1,10 @@
 ---
 version: "0.1.0"
-level: pair
+level: copilot
 processes:
   design: assist
   implementation: pair
-  testing: pair
+  testing: copilot
   documentation: assist
   review: hint
   deployment: none

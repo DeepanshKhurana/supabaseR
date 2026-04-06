@@ -3,6 +3,11 @@
 ^supabaseR\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-.lintr
+^\.lintr$
 ^CANDOR\.md$
+^CONTRIBUTING\.md$
 ^test_operations\.R$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

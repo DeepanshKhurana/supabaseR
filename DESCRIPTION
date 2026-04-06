@@ -20,7 +20,9 @@ Imports:
     glue,
     httr2,
     RPostgres
-Suggests: 
+Suggests:
+    jsonlite,
+    mockery,
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
