@@ -4,7 +4,7 @@
 \alias{sb_db_connect}
 \title{Connect to Supabase}
 \usage{
-sb_db_connect(schema = Sys.getenv("SUPABASE_SCHEMA"))
+sb_db_connect(schema = Sys.getenv("SUPABASE_SCHEMA", "public"))
 }
 \arguments{
 \item{schema}{The schema name}

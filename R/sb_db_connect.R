@@ -5,7 +5,7 @@
 #' @example man/examples/sb_db_connect.R
 #' @export
 sb_db_connect <- function(
-  schema = Sys.getenv("SUPABASE_SCHEMA")
+  schema = Sys.getenv("SUPABASE_SCHEMA", "public")
 ) {
   if (!.sb_env$dbi_available) {
     stop(
@@ -58,9 +58,10 @@ get_connection <- function() {
 #' @return The current schema name
 #' @keywords internal
 get_schema <- function() {
-  if (is.null(.sb_env$schema)) {
-    Sys.getenv("SUPABASE_SCHEMA")
+  schema <- .sb_env$schema
+  if (is.null(schema) || nchar(schema) == 0) {
+    Sys.getenv("SUPABASE_SCHEMA", "public")
   } else {
-    .sb_env$schema
+    schema
   }
 }

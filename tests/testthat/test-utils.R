@@ -73,3 +73,59 @@ describe("build_where()", {
     expect_false(grepl("WHERE", result))
   })
 })
+
+describe(".build_api_params()", {
+  it("should return select=* by default", {
+    result <- .build_api_params()
+    expect_equal(result$select, "*")
+    expect_null(result$limit)
+  })
+
+  it("should join column vector into comma-separated select", {
+    result <- .build_api_params(columns = c("id", "name", "email"))
+    expect_equal(result$select, "id,name,email")
+  })
+
+  it("should produce eq. prefix for bare value", {
+    result <- .build_api_params(where = list(id = 1))
+    expect_equal(result$id, "eq.1")
+  })
+
+  it("should produce op. prefix for operator", {
+    expect_equal(.build_api_params(where = list(age = list(gt = 25)))$age, "gt.25")
+    expect_equal(.build_api_params(where = list(age = list(gte = 18)))$age, "gte.18")
+    expect_equal(.build_api_params(where = list(age = list(lt = 65)))$age, "lt.65")
+    expect_equal(.build_api_params(where = list(age = list(lte = 100)))$age, "lte.100")
+    expect_equal(
+      .build_api_params(where = list(status = list(neq = "inactive")))$status,
+      "neq.inactive"
+    )
+    expect_equal(.build_api_params(where = list(name = list(like = "A%")))$name, "like.A%")
+    expect_equal(.build_api_params(where = list(name = list(ilike = "a%")))$name, "ilike.a%")
+    expect_equal(
+      .build_api_params(where = list(deleted_at = list(is = "null")))$deleted_at,
+      "is.null"
+    )
+  })
+
+  it("should produce in.(v1,v2,v3) format for in operator", {
+    result <- .build_api_params(where = list(id = list("in" = c(1, 2, 3))))
+    expect_equal(result$id, "in.(1,2,3)")
+  })
+
+  it("should add limit param when limit > 0", {
+    result <- .build_api_params(limit = 10)
+    expect_equal(result$limit, 10)
+  })
+
+  it("should omit limit param when limit == 0", {
+    result <- .build_api_params(limit = 0)
+    expect_null(result$limit)
+  })
+
+  it("should include multiple where conditions as separate params", {
+    result <- .build_api_params(where = list(a = 1, b = 2))
+    expect_equal(result$a, "eq.1")
+    expect_equal(result$b, "eq.2")
+  })
+})

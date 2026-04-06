@@ -2,13 +2,13 @@
 % Please edit documentation in R/sb_db_status.R
 \name{sb_db_status}
 \alias{sb_db_status}
-\title{Check available backends}
+\title{Check DBI backend status}
 \usage{
 sb_db_status()
 }
 \value{
-A list with backend availability
+A list with DBI connection info
 }
 \description{
-Check available backends
+Check DBI backend status
 }

@@ -4,6 +4,6 @@
       sb_api_connect()
     Condition
       Error in `sb_api_connect()`:
-      ! API credentials not found.
-            Set SUPABASE_URL and SUPABASE_ANON_KEY.
+      x API credentials not found.
+      i Set `SUPABASE_URL` and at least one of `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_ANON_KEY`, `SUPABASE_SECRET_KEY`, or `SUPABASE_ROLE_KEY`.
 

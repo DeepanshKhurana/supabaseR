@@ -28,9 +28,6 @@ sb_connect <- function(
   if (backend == "db") {
     sb_db_connect(schema = schema)
   } else if (backend == "api") {
-    if (!exists("sb_api_connect", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_connect()
   }
 }
@@ -45,9 +42,7 @@ sb_disconnect <- function() {
   if (backend == "db") {
     sb_db_disconnect()
   } else if (backend == "api") {
-    if (exists("sb_api_disconnect", mode = "function")) {
-      sb_api_disconnect()
-    }
+    sb_api_disconnect()
   }
 
   .sb_env$backend <- NULL
@@ -56,19 +51,25 @@ sb_disconnect <- function() {
 
 #' Get connection status
 #'
-#' @return List with connection info
+#' Returns availability and connection state for both backends, the active
+#' backend (if \code{sb_connect()} has been called), and the current schema.
+#'
+#' @return A list with \code{dbi}, \code{api}, \code{backend}, and
+#'   \code{schema} entries
 #' @export
 sb_status <- function() {
-  backend <- get_backend()
-
-  if (backend == "db") {
-    sb_db_status()
-  } else if (backend == "api") {
-    if (!exists("sb_api_status", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
-    sb_api_status()
-  }
+  list(
+    dbi = list(
+      available = isTRUE(.sb_env$dbi_available),
+      connected = !is.null(.sb_env$conn)
+    ),
+    api = list(
+      available = isTRUE(.sb_env$api_available),
+      connected = isTRUE(.sb_env$api_available)
+    ),
+    backend = .sb_env$backend,
+    schema = get_schema()
+  )
 }
 
 #' Read table data
@@ -92,12 +93,10 @@ sb_read <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_read", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_read(
       table = table,
-      limit = limit
+      limit = limit,
+      schema = schema
     )
   }
 }
@@ -123,12 +122,10 @@ sb_insert <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_insert", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_insert(
       table = table,
-      data = data
+      data = data,
+      schema = schema
     )
   }
 }
@@ -157,13 +154,11 @@ sb_update <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_update", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_update(
       table = table,
       data = data,
-      where = where
+      where = where,
+      schema = schema
     )
   }
 }
@@ -189,12 +184,10 @@ sb_delete <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_delete", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_delete(
       table = table,
-      where = where
+      where = where,
+      schema = schema
     )
   }
 }
@@ -223,13 +216,11 @@ sb_upsert <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_upsert", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_upsert(
       table = table,
       data = data,
-      conflict_columns = conflict_columns
+      conflict_columns = conflict_columns,
+      schema = schema
     )
   }
 }
@@ -265,16 +256,17 @@ sb_query <- function(
     )
   } else if (backend == "api") {
     if (!is.null(sql)) {
-      stop("Raw SQL not supported with API backend.")
-    }
-    if (!exists("sb_api_query", mode = "function")) {
-      stop("API backend not yet implemented.")
+      cli::cli_abort(
+        c("x" = "Raw SQL is not supported with the API backend."),
+        call. = FALSE
+      )
     }
     sb_api_query(
       table = table,
       columns = columns,
       where = where,
-      limit = limit
+      limit = limit,
+      schema = schema
     )
   }
 }
@@ -294,10 +286,9 @@ sb_tables <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_tables", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
-    sb_api_tables()
+    sb_api_tables(
+      schema = schema
+    )
   }
 }
 
@@ -319,11 +310,9 @@ sb_schema <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_schema", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_schema(
-      table = table
+      table = table,
+      schema = schema
     )
   }
 }
@@ -346,11 +335,9 @@ sb_table_exists <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_table_exists", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_table_exists(
-      table = table
+      table = table,
+      schema = schema
     )
   }
 }
@@ -373,11 +360,9 @@ sb_truncate <- function(
       schema = schema
     )
   } else if (backend == "api") {
-    if (!exists("sb_api_truncate", mode = "function")) {
-      stop("API backend not yet implemented.")
-    }
     sb_api_truncate(
-      table = table
+      table = table,
+      schema = schema
     )
   }
 }

@@ -4,19 +4,32 @@
 \alias{sb_api_read}
 \title{Read table data via API}
 \usage{
-sb_api_read(table = NULL, where = NULL, limit = NULL)
+sb_api_read(table = NULL, limit = 0, schema = get_schema())
 }
 \arguments{
 \item{table}{The table name}
 
-\item{where}{A list of filter conditions (e.g. list(id = 1
-or list(created_at = list(gt = "2024-01-01")))}
+\item{limit}{Maximum rows to return (0 for all)}
 
-\item{limit}{Maximum rows to return (NULL for all)}
+\item{schema}{The schema name}
 }
 \value{
 A \code{tibble}
 }
 \description{
 Read table data via API
+}
+\examples{
+\dontrun{
+sb_api_connect()
+
+# Read all rows
+sb_api_read("users")
+
+# Read with a row limit
+sb_api_read("users", limit = 10)
+
+# Read from a non-default schema
+sb_api_read("orders", schema = "billing")
+}
 }
