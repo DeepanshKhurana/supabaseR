@@ -1,15 +1,16 @@
 Package: supabaseR
-Title: CRUD utils in R for Supabase
-Version: 0.1.0.9000
+Title: 'CRUD' Utils in 'R' for 'Supabase'
+Version: 1.0.0
 Authors@R: c(
     person("Deepansh", "Khurana", , "deepanshkhurana@outlook.com", role = c("aut", "cre")),
     person("Maciej", "Banas", , "banasmaciek@gmail.com", role = "aut")
   )
-Description: supabaseR is an open-source package, designed to be as basic as possible to help with CRUD utils in R for Supabase.
+Description: An dual-paradigm interface to 'Supabase' (<https://supabase.com/>), an open-source backend-as-a-service platform. Provides comprehensive database operations including Create, Read, Update, Delete ('CRUD') functionality through both REST API endpoints and direct 'PostgreSQL' database connections. Simplifies authentication, data management, and schema operations for 'Supabase' projects.
 License: MIT + file LICENSE
 URL: https://deepanshkhurana.github.io/supabaseR/, https://github.com/DeepanshKhurana/supabaseR
 BugReports: https://github.com/DeepanshKhurana/supabaseR/issues
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports:

@@ -13,7 +13,12 @@ sb_db_connect(schema = Sys.getenv("SUPABASE_SCHEMA", "public"))
 Invisible connection object
 }
 \description{
-Connect to Supabase
+Uses DBI/PostgreSQL to connect directly to your Supabase database.
+Get connection parameters from the Connect tab in your Supabase Dashboard
+(Project Settings > Database > Connection Strings). All three modes work:
+Direct Connection, Transaction Pooler, and Session Pooler. If Direct connection
+doesn't work, try Transaction or Session Pooler. Remember to use the correct
+host, user, and password from your chosen connection mode.
 }
 \examples{
 \dontrun{

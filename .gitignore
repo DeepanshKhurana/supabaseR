@@ -4,3 +4,5 @@
 .Renviron
 .DS_Store
 test_operations.R
+CRAN_SUBMISSION
+cran-comments.md
