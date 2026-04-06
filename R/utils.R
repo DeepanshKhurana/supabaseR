@@ -133,7 +133,8 @@
 .parse_count_header <- function(response) {
   cr <- httr2::resp_header(response, "Content-Range")
   if (is.null(cr) || !grepl("^\\*/", cr)) return(0L)
-  as.integer(sub("^\\*/", "", cr))
+  n <- suppressWarnings(as.integer(sub("^\\*/", "", cr)))
+  if (is.na(n)) 0L else n
 }
 
 #' Abort with a structured PostgREST error message

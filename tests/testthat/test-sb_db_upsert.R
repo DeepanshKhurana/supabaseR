@@ -28,9 +28,15 @@ describe("sb_db_upsert()", {
   it("should return row count on successful upsert", {
     # Arrange
     mock_conn <- DBI::ANSI()
-    mockery::stub(sb_db_upsert, "get_connection", function() mock_conn)
-    mockery::stub(sb_db_upsert, "sb_db_table_exists", function(...) TRUE)
-    mockery::stub(sb_db_upsert, "DBI::dbExecute", function(...) 1L)
+    local_mocked_bindings(
+      get_connection = function() mock_conn,
+      sb_db_table_exists = function(...) TRUE,
+      .package = "supabaseR"
+    )
+    local_mocked_bindings(
+      dbExecute = function(...) 1L,
+      .package = "DBI"
+    )
     # Act
     n <- sb_db_upsert("users",
                       data = data.frame(id = 1L, name = "Alice"),
@@ -42,13 +48,19 @@ describe("sb_db_upsert()", {
   it("should handle NA values in data by emitting NULL in SQL", {
     # Arrange
     mock_conn <- DBI::ANSI()
-    mockery::stub(sb_db_upsert, "get_connection", function() mock_conn)
-    mockery::stub(sb_db_upsert, "sb_db_table_exists", function(...) TRUE)
     captured_query <- NULL
-    mockery::stub(sb_db_upsert, "DBI::dbExecute", function(conn, q, ...) {
-      captured_query <<- as.character(q)
-      1L
-    })
+    local_mocked_bindings(
+      get_connection = function() mock_conn,
+      sb_db_table_exists = function(...) TRUE,
+      .package = "supabaseR"
+    )
+    local_mocked_bindings(
+      dbExecute = function(conn, statement, ...) {
+        captured_query <<- as.character(statement)
+        1L
+      },
+      .package = "DBI"
+    )
     # Act
     sb_db_upsert("users",
                  data = data.frame(id = 1L, name = NA_character_),
@@ -60,8 +72,11 @@ describe("sb_db_upsert()", {
   it("should error when table does not exist", {
     # Arrange
     mock_conn <- DBI::ANSI()
-    mockery::stub(sb_db_upsert, "get_connection", function() mock_conn)
-    mockery::stub(sb_db_upsert, "sb_db_table_exists", function(...) FALSE)
+    local_mocked_bindings(
+      get_connection = function() mock_conn,
+      sb_db_table_exists = function(...) FALSE,
+      .package = "supabaseR"
+    )
     # Act and Assert
     expect_error(sb_db_upsert("no_such",
                               data = data.frame(id = 1L),

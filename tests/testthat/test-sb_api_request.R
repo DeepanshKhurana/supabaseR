@@ -176,6 +176,16 @@ describe(".parse_count_header()", {
     expect_equal(.parse_count_header(resp), 0L)
   })
 
+  it("should return 0 not NA for */non-numeric count", {
+    # Arrange
+    resp <- make_mock_response(content_range = "*/unknown")
+    # Act
+    result <- .parse_count_header(resp)
+    # Assert
+    expect_equal(result, 0L)
+    expect_false(is.na(result))
+  })
+
   it("should parse 0 rows correctly", {
     # Arrange
     resp <- make_mock_response(content_range = "*/0")
