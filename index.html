@@ -41,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="index.html">supabaseR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,6 +73,16 @@
 <!-- badges: start -->
 
 <p>The unofficial R package for Supabase. It supports a <strong>dual-backend</strong> design: a DBI/PostgreSQL backend for direct database access and a REST API backend via PostgREST. Both backends expose identical function signatures — unified <code>sb_*</code> wrappers auto-dispatch to whichever backend is available, or you can call <code>sb_db_*</code> / <code>sb_api_*</code> directly.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"deepanshkhurana/supabaseR"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
 <p>Supabase now issues four types of API keys. All are supported:</p>
 <table class="table">
 <colgroup>
@@ -108,16 +118,6 @@
 </tr>
 </tbody>
 </table>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"deepanshkhurana/supabaseR"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
-</h2>
 <div class="section level3">
 <h3 id="dbi-backend">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend"></a>
 </h3>
@@ -141,7 +141,7 @@
 <p>Both backends can be active at the same time. The startup message shows which are detected:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://deepanshkhurana.github.io/supabaseR/">supabaseR</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; supabaseR v0.1.0</span></span>
+<span><span class="co">#&gt; supabaseR v1.0.0</span></span>
 <span><span class="co">#&gt;   DBI Backend: ✔</span></span>
 <span><span class="co">#&gt;   API Backend: ✔</span></span></code></pre></div>
 </div>

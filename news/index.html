@@ -15,7 +15,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">supabaseR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,60 +40,35 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0" id="supabaser-010-development">supabaseR 0.1.0 (development)<a class="anchor" aria-label="anchor" href="#supabaser-010-development"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="supabaser-100-2026-04-07">supabaseR 1.0.0 (2026-04-07)<a class="anchor" aria-label="anchor" href="#supabaser-100-2026-04-07"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-0-1-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>
-<ul><li>Complete API redesign: all functions renamed from <code>get_*</code>/<code>put_*</code> to <code>sb_db_*</code> prefix</li>
-<li>Removed deprecated functions: <code>get_table_data</code>, <code>put_table_row</code>, <code>delete_table_row</code>, etc.</li>
-<li>Removed renv dependency management</li>
+<h3 id="breaking-changes-1-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
+<ul><li>All functions renamed from <code>get_*</code> / <code>put_*</code> to namespaced <code>sb_db_*</code>, <code>sb_api_*</code>, and <code>sb_*</code> prefixes. Legacy functions removed.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-0-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
-<ul><li>
-<code><a href="../reference/sb_db_connect.html">sb_db_connect()</a></code> / <code><a href="../reference/sb_db_disconnect.html">sb_db_disconnect()</a></code>: connection management with cli feedback</li>
+<h3 id="new-features-1-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0-0"></a></h3>
+<ul><li>Dual-backend design: DBI/PostgreSQL (<code>sb_db_*</code>) and Supabase REST API (<code>sb_api_*</code>), with unified wrappers (<code>sb_*</code>) that auto-dispatch.</li>
+<li>Full CRUD for both backends: <code>read</code>, <code>query</code>, <code>insert</code>, <code>update</code>, <code>upsert</code>, <code>delete</code>, <code>truncate</code>.</li>
+<li>Table metadata helpers: <code>tables</code>, <code>table_exists</code>, <code>schema</code>.</li>
 <li>
-<code><a href="../reference/sb_db_status.html">sb_db_status()</a></code>: DBI connection status</li>
+<code>where</code> filter operators across both backends: <code>gt</code>, <code>lt</code>, <code>gte</code>, <code>lte</code>, <code>neq</code>, <code>like</code>, <code>ilike</code>, <code>in</code>, <code>is</code>. Raw SQL supported on the DBI backend.</li>
+<li>All four Supabase key formats supported. Secret / service-role keys bypass Row Level Security (RLS) automatically. Deprecation warnings for legacy JWT keys.</li>
 <li>
-<code><a href="../reference/sb_db_tables.html">sb_db_tables()</a></code>, <code><a href="../reference/sb_db_table_exists.html">sb_db_table_exists()</a></code>, <code><a href="../reference/sb_db_schema.html">sb_db_schema()</a></code>: table metadata</li>
+<code>SUPABASE_SCHEMA</code> env var honoured by both backends via <code><a href="../reference/get_schema.html">get_schema()</a></code>.</li>
+<li>CLI startup message on load showing which backends are detected.</li>
 <li>
-<code><a href="../reference/sb_db_read.html">sb_db_read()</a></code>: read table data with optional limit</li>
-<li>
-<code><a href="../reference/sb_db_query.html">sb_db_query()</a></code>: query with <code>where</code> operators (gt, lt, like, in, etc.) or raw SQL</li>
-<li>
-<code><a href="../reference/sb_db_insert.html">sb_db_insert()</a></code>, <code><a href="../reference/sb_db_update.html">sb_db_update()</a></code>, <code><a href="../reference/sb_db_delete.html">sb_db_delete()</a></code>, <code><a href="../reference/sb_db_truncate.html">sb_db_truncate()</a></code>: CRUD operations</li>
-<li>
-<code><a href="../reference/sb_db_upsert.html">sb_db_upsert()</a></code>: insert or update with conflict handling</li>
-<li>Backend detection on package load with status display</li>
-<li>cli-powered success messages for all write operations</li>
-<li>Full REST API backend via httr2 / PostgREST:
-<ul><li>
-<code><a href="../reference/sb_api_connect.html">sb_api_connect()</a></code>, <code><a href="../reference/sb_api_disconnect.html">sb_api_disconnect()</a></code>, <code><a href="../reference/sb_api_status.html">sb_api_status()</a></code>: credential and session management</li>
-<li>
-<code><a href="../reference/sb_api_read.html">sb_api_read()</a></code>, <code><a href="../reference/sb_api_query.html">sb_api_query()</a></code>: read and filter table data</li>
-<li>
-<code><a href="../reference/sb_api_tables.html">sb_api_tables()</a></code>, <code><a href="../reference/sb_api_table_exists.html">sb_api_table_exists()</a></code>, <code><a href="../reference/sb_api_schema.html">sb_api_schema()</a></code>: table metadata via PostgREST OpenAPI spec</li>
-<li>
-<code><a href="../reference/sb_api_insert.html">sb_api_insert()</a></code>, <code><a href="../reference/sb_api_update.html">sb_api_update()</a></code>, <code><a href="../reference/sb_api_delete.html">sb_api_delete()</a></code>, <code><a href="../reference/sb_api_upsert.html">sb_api_upsert()</a></code>, <code><a href="../reference/sb_api_truncate.html">sb_api_truncate()</a></code>: write operations</li>
-</ul></li>
-<li>
-<code>SUPABASE_SECRET_KEY</code> / <code>SUPABASE_ROLE_KEY</code> automatically preferred over anon key for all API requests (bypasses Row Level Security)</li>
-<li>
-<code>SUPABASE_SCHEMA</code> env var honoured by both backends via <code><a href="../reference/get_schema.html">get_schema()</a></code>
-</li>
-<li>Legacy JWT key deprecation warnings on load and on <code><a href="../reference/sb_api_connect.html">sb_api_connect()</a></code>, with link to <a href="https://github.com/orgs/supabase/discussions/29260" class="external-link">key migration guide</a>
+<code>pkgdown</code> documentation website at <a href="https://deepanshkhurana.github.io/supabaseR/reference/index.html">deepanshkhurana.github.io/supabaseR</a>
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="internal-0-1-0">Internal<a class="anchor" aria-label="anchor" href="#internal-0-1-0"></a></h3>
-<ul><li>Use <code><a href="https://glue.tidyverse.org/reference/glue_sql.html" class="external-link">glue::glue_sql()</a></code> for all SQL construction</li>
-<li>Add <code><a href="../reference/build_where.html">build_where()</a></code> helper for operator support</li>
-<li>Add comprehensive test coverage with testthat 3.0 snapshots</li>
+<h3 id="bug-fixes-and-improvements-1-0-0">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-1-0-0"></a></h3>
+<ul><li>SQL construction uses <code><a href="https://glue.tidyverse.org/reference/glue_sql.html" class="external-link">glue::glue_sql()</a></code> throughout to prevent injection.</li>
+<li>100% test coverage via <code>testthat</code> 3 with <code>mockery</code> stubs; no live database required.</li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.1" id="supabaser-001">supabaseR 0.0.1<a class="anchor" aria-label="anchor" href="#supabaser-001"></a></h2>
-<ul><li>Initial release with basic CRUD functions</li>
-<li>Environment variable configuration</li>
+<ul><li>Initial release with basic CRUD functions and environment variable configuration.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

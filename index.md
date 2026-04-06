@@ -6,15 +6,6 @@ API backend via PostgREST. Both backends expose identical function
 signatures — unified `sb_*` wrappers auto-dispatch to whichever backend
 is available, or you can call `sb_db_*` / `sb_api_*` directly.
 
-Supabase now issues four types of API keys. All are supported:
-
-| Type             | Env var                    | Notes                                                              |
-|------------------|----------------------------|--------------------------------------------------------------------|
-| Publishable key  | `SUPABASE_PUBLISHABLE_KEY` | New format (`sb_publishable_...`) — recommended                    |
-| Secret key       | `SUPABASE_SECRET_KEY`      | New format (`sb_secret_...`) — bypasses RLS when present           |
-| Anon key         | `SUPABASE_ANON_KEY`        | Legacy JWT (`eyJ...`) — still supported, deprecation warning shown |
-| Service role key | `SUPABASE_ROLE_KEY`        | Legacy JWT (`eyJ...`) — still supported, deprecation warning shown |
-
 ## Installation
 
 ``` r
@@ -23,6 +14,15 @@ remotes::install_github("deepanshkhurana/supabaseR")
 ```
 
 ## Setup
+
+Supabase now issues four types of API keys. All are supported:
+
+| Type             | Env var                    | Notes                                                              |
+|------------------|----------------------------|--------------------------------------------------------------------|
+| Publishable key  | `SUPABASE_PUBLISHABLE_KEY` | New format (`sb_publishable_...`) — recommended                    |
+| Secret key       | `SUPABASE_SECRET_KEY`      | New format (`sb_secret_...`) — bypasses RLS when present           |
+| Anon key         | `SUPABASE_ANON_KEY`        | Legacy JWT (`eyJ...`) — still supported, deprecation warning shown |
+| Service role key | `SUPABASE_ROLE_KEY`        | Legacy JWT (`eyJ...`) — still supported, deprecation warning shown |
 
 ### DBI Backend
 
@@ -52,7 +52,7 @@ which are detected:
 
 ``` r
 library(supabaseR)
-#> supabaseR v0.1.0
+#> supabaseR v1.0.0
 #>   DBI Backend: ✔
 #>   API Backend: ✔
 ```
