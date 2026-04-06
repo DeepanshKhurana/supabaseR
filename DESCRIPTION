@@ -16,7 +16,10 @@ Imports:
     checkmate,
     cli,
     DBI,
+    dplyr,
     glue,
+    httr2,
+    jsonlite,
     RPostgres
 Suggests: 
     testthat (>= 3.0.0),
