@@ -5,7 +5,7 @@ Connect to Supabase
 ## Usage
 
 ``` r
-sb_db_connect(schema = Sys.getenv("SUPABASE_SCHEMA"))
+sb_db_connect(schema = Sys.getenv("SUPABASE_SCHEMA", "public"))
 ```
 
 ## Arguments

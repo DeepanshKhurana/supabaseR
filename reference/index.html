@@ -45,6 +45,11 @@
 
       <dl></dl></div><div class="section level2">
 
+      <h3 id="unified-api">Unified API<a class="anchor" aria-label="anchor" href="#unified-api"></a></h3>
+      <div class="section-desc"><p>Auto-dispatches to DBI or REST based on available credentials</p></div>
+
+      <dl></dl></div><div class="section level2">
+
 
 
 
@@ -68,8 +73,17 @@
 
         </dt>
         <dd>Get connection status</dd>
+      </dl></div><div class="section level2">
 
-        <dt>
+      <h3 id="dbi-backend">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend"></a></h3>
+      <div class="section-desc"><p>Direct PostgreSQL connection via DBI</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="sb_db_connect.html">sb_db_connect()</a></code>
 
@@ -88,7 +102,7 @@
           <code><a href="sb_db_status.html">sb_db_status()</a></code>
 
         </dt>
-        <dd>Check available backends</dd>
+        <dd>Check DBI backend status</dd>
 
         <dt>
 
@@ -97,9 +111,44 @@
         </dt>
         <dd>Read Supabase credentials from environment variables</dd>
       </dl></div><div class="section level2">
+
+      <h3 id="rest-api-backend">REST API Backend<a class="anchor" aria-label="anchor" href="#rest-api-backend"></a></h3>
+      <div class="section-desc"><p>Supabase REST API via PostgREST</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sb_api_connect.html">sb_api_connect()</a></code>
+
+        </dt>
+        <dd>Connect to Supabase via REST API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_disconnect.html">sb_api_disconnect()</a></code>
+
+        </dt>
+        <dd>Disconnect from Supabase API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_status.html">sb_api_status()</a></code>
+
+        </dt>
+        <dd>Check API backend status</dd>
+      </dl></div><div class="section level2">
       <h2 id="read-operations">Read Operations<a class="anchor" aria-label="anchor" href="#read-operations"></a></h2>
 
       <div class="section-desc"><p>Query and read data from tables</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+      <h3 id="unified-api-1">Unified API<a class="anchor" aria-label="anchor" href="#unified-api-1"></a></h3>
+
 
       <dl></dl></div><div class="section level2">
 
@@ -140,8 +189,17 @@
 
         </dt>
         <dd>Check if table exists</dd>
+      </dl></div><div class="section level2">
 
-        <dt>
+      <h3 id="dbi-backend-1">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend-1"></a></h3>
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="sb_db_read.html">sb_db_read()</a></code>
 
@@ -176,9 +234,58 @@
         </dt>
         <dd>Check if table exists</dd>
       </dl></div><div class="section level2">
+
+      <h3 id="rest-api-backend-1">REST API Backend<a class="anchor" aria-label="anchor" href="#rest-api-backend-1"></a></h3>
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sb_api_read.html">sb_api_read()</a></code>
+
+        </dt>
+        <dd>Read table data via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_query.html">sb_api_query()</a></code>
+
+        </dt>
+        <dd>Query a table via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_tables.html">sb_api_tables()</a></code>
+
+        </dt>
+        <dd>List tables via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_schema.html">sb_api_schema()</a></code>
+
+        </dt>
+        <dd>Get table schema via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_table_exists.html">sb_api_table_exists()</a></code>
+
+        </dt>
+        <dd>Check if a table exists via API</dd>
+      </dl></div><div class="section level2">
       <h2 id="write-operations">Write Operations<a class="anchor" aria-label="anchor" href="#write-operations"></a></h2>
 
       <div class="section-desc"><p>Insert, update, delete, and upsert data</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+      <h3 id="unified-api-2">Unified API<a class="anchor" aria-label="anchor" href="#unified-api-2"></a></h3>
+
 
       <dl></dl></div><div class="section level2">
 
@@ -219,8 +326,17 @@
 
         </dt>
         <dd>Truncate a table</dd>
+      </dl></div><div class="section level2">
 
-        <dt>
+      <h3 id="dbi-backend-2">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend-2"></a></h3>
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="sb_db_insert.html">sb_db_insert()</a></code>
 
@@ -254,13 +370,57 @@
 
         </dt>
         <dd>Truncate a table</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="rest-api-backend-2">REST API Backend<a class="anchor" aria-label="anchor" href="#rest-api-backend-2"></a></h3>
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sb_api_insert.html">sb_api_insert()</a></code>
+
+        </dt>
+        <dd>Insert rows into a table via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_update.html">sb_api_update()</a></code>
+
+        </dt>
+        <dd>Update rows in a table via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_delete.html">sb_api_delete()</a></code>
+
+        </dt>
+        <dd>Delete rows from a table via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_upsert.html">sb_api_upsert()</a></code>
+
+        </dt>
+        <dd>Upsert rows into a table via API</dd>
+
+        <dt>
+
+          <code><a href="sb_api_truncate.html">sb_api_truncate()</a></code>
+
+        </dt>
+        <dd>Truncate a table via API</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a>.</p>
+  <p>Developed by <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a>, Maciej Banas.</p>
 </div>
 
 <div class="pkgdown-footer-right">

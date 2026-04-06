@@ -72,8 +72,42 @@
 </div>
 <!-- badges: start -->
 
-<p>The unnofficial “official” R package for Supabase operations. The package has a dual-API philosophy that uses DBI <em>and</em> the Supabase API. For Db CRUD operations, the DBI functions take precedence if available. Otherwise, they fallback to the Supabase REST API. The goal is to allow users the flexibility to use both together. Additionally, in the future, we plan to bring about more features from Supabase into this package.</p>
-<p>The environment variables dictate if DBI, API or both are available on package load.</p>
+<p>The unofficial R package for Supabase. It supports a <strong>dual-backend</strong> design: a DBI/PostgreSQL backend for direct database access and a REST API backend via PostgREST. Both backends expose identical function signatures — unified <code>sb_*</code> wrappers auto-dispatch to whichever backend is available, or you can call <code>sb_db_*</code> / <code>sb_api_*</code> directly.</p>
+<p>Supabase now issues four types of API keys. All are supported:</p>
+<table class="table">
+<colgroup>
+<col width="27%">
+<col width="40%">
+<col width="31%">
+</colgroup>
+<thead><tr class="header">
+<th>Type</th>
+<th>Env var</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Publishable key</td>
+<td><code>SUPABASE_PUBLISHABLE_KEY</code></td>
+<td>New format (<code>sb_publishable_...</code>) — recommended</td>
+</tr>
+<tr class="even">
+<td>Secret key</td>
+<td><code>SUPABASE_SECRET_KEY</code></td>
+<td>New format (<code>sb_secret_...</code>) — bypasses RLS when present</td>
+</tr>
+<tr class="odd">
+<td>Anon key</td>
+<td><code>SUPABASE_ANON_KEY</code></td>
+<td>Legacy JWT (<code>eyJ...</code>) — still supported, deprecation warning shown</td>
+</tr>
+<tr class="even">
+<td>Service role key</td>
+<td><code>SUPABASE_ROLE_KEY</code></td>
+<td>Legacy JWT (<code>eyJ...</code>) — still supported, deprecation warning shown</td>
+</tr>
+</tbody>
+</table>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -84,63 +118,124 @@
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
-<p>Set environment variables:</p>
+<div class="section level3">
+<h3 id="dbi-backend">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="va">SUPABASE_HOST</span><span class="op">=</span>db.xxx.supabase.co</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="va">SUPABASE_DBNAME</span><span class="op">=</span>postgres</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="va">SUPABASE_USER</span><span class="op">=</span>postgres</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="va">SUPABASE_PASSWORD</span><span class="op">=</span>your_password</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="va">SUPABASE_SCHEMA</span><span class="op">=</span>public</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="va">SUPABASE_SCHEMA</span><span class="op">=</span>public          <span class="co"># optional; defaults to "public"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="rest-api-backend">REST API Backend<a class="anchor" aria-label="anchor" href="#rest-api-backend"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># New-format keys (recommended)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="va">SUPABASE_URL</span><span class="op">=</span>https://xxx.supabase.co</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="va">SUPABASE_PUBLISHABLE_KEY</span><span class="op">=</span>sb_publishable_...</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="va">SUPABASE_SECRET_KEY</span><span class="op">=</span>sb_secret_...   <span class="co"># optional; bypasses RLS when present</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># Legacy JWT keys (still supported; deprecation warning shown on load)</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># SUPABASE_ANON_KEY=eyJ...</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># SUPABASE_ROLE_KEY=eyJ...</span></span></code></pre></div>
+<p>Both backends can be active at the same time. The startup message shows which are detected:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://deepanshkhurana.github.io/supabaseR/">supabaseR</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; supabaseR v0.1.0</span></span>
+<span><span class="co">#&gt;   DBI Backend: ✔</span></span>
+<span><span class="co">#&gt;   API Backend: ✔</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(supabaseR)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="sc">&gt;</span> supabaseR v...</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="sc">&gt;</span>   DBI Backend<span class="sc">:</span> ✔</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="sc">&gt;</span>   API Backend<span class="sc">:</span> ✖</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="fu">sb_db_connect</span>()</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="sc">&gt;</span> ✔ Connected to db.xxx.supabase.co</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co"># Read</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="fu">sb_db_tables</span>()</span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="fu">sb_db_schema</span>(<span class="st">"users"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="fu">sb_db_read</span>(<span class="st">"users"</span>, <span class="at">limit =</span> <span class="dv">10</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co"># Query with operators</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="fu">sb_db_query</span>(<span class="st">"users"</span>, <span class="at">where =</span> <span class="fu">list</span>(<span class="at">id =</span> <span class="dv">1</span>))</span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="fu">sb_db_query</span>(<span class="st">"users"</span>, <span class="at">where =</span> <span class="fu">list</span>(<span class="at">age =</span> <span class="fu">list</span>(<span class="at">gt =</span> <span class="dv">18</span>)))</span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="fu">sb_db_query</span>(<span class="st">"users"</span>, <span class="at">where =</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="fu">list</span>(<span class="at">like =</span> <span class="st">"A%"</span>)))</span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="fu">sb_db_query</span>(<span class="st">"users"</span>, <span class="at">where =</span> <span class="fu">list</span>(<span class="at">id =</span> <span class="fu">list</span>(<span class="st">"in"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))))</span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co"># Raw SQL</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="fu">sb_db_query</span>(<span class="at">sql =</span> <span class="st">"SELECT * FROM public.users WHERE id = 1"</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co"># Write</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="fu">sb_db_insert</span>(<span class="st">"users"</span>, <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="st">"Alice"</span>))</span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="sc">&gt;</span> ✔ Inserted <span class="dv">1</span> row into users</span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="fu">sb_db_update</span>(<span class="st">"users"</span>, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"Bob"</span>), <span class="at">where =</span> <span class="fu">list</span>(<span class="at">id =</span> <span class="dv">1</span>))</span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="sc">&gt;</span> ✔ Updated <span class="dv">1</span> row <span class="cf">in</span> users</span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="fu">sb_db_upsert</span>(<span class="st">"users"</span>, <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span>, <span class="at">name =</span> <span class="st">"Charlie"</span>), <span class="at">conflict_columns =</span> <span class="st">"id"</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="sc">&gt;</span> ✔ Upserted <span class="dv">1</span> row into users</span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="fu">sb_db_delete</span>(<span class="st">"users"</span>, <span class="at">where =</span> <span class="fu">list</span>(<span class="at">id =</span> <span class="dv">1</span>))</span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="sc">&gt;</span> ✔ Deleted <span class="dv">1</span> row from users</span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="fu">sb_db_disconnect</span>()</span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="sc">&gt;</span> ✔ Disconnected</span></code></pre></div>
+<p>Use <code><a href="reference/sb_connect.html">sb_connect()</a></code> to auto-detect the best available backend, then call the unified <code>sb_*</code> wrappers:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/sb_connect.html">sb_connect</a></span><span class="op">(</span><span class="op">)</span>           <span class="co"># picks DBI if available, otherwise REST API</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_tables.html">sb_tables</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_read.html">sb_read</a></span><span class="op">(</span><span class="st">"users"</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_query.html">sb_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>gt <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_insert.html">sb_insert</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Alice"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_update.html">sb_update</a></span><span class="op">(</span><span class="st">"users"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Bob"</span><span class="op">)</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_delete.html">sb_delete</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_disconnect.html">sb_disconnect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="dbi-backend-1">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend-1"></a>
+</h2>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/sb_db_connect.html">sb_db_connect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Connected to db.xxx.supabase.co</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_db_tables.html">sb_db_tables</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_db_schema.html">sb_db_schema</a></span><span class="op">(</span><span class="st">"users"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_db_read.html">sb_db_read</a></span><span class="op">(</span><span class="st">"users"</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Query with operators</span></span>
+<span><span class="fu"><a href="reference/sb_db_query.html">sb_db_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_db_query.html">sb_db_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>gt <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_db_query.html">sb_db_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>like <span class="op">=</span> <span class="st">"A%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_db_query.html">sb_db_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"in"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Raw SQL</span></span>
+<span><span class="fu"><a href="reference/sb_db_query.html">sb_db_query</a></span><span class="op">(</span>sql <span class="op">=</span> <span class="st">"SELECT * FROM public.users WHERE id = 1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Write</span></span>
+<span><span class="fu"><a href="reference/sb_db_insert.html">sb_db_insert</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Alice"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Inserted 1 row into users</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_db_update.html">sb_db_update</a></span><span class="op">(</span><span class="st">"users"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Bob"</span><span class="op">)</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Updated 1 row in users</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_db_upsert.html">sb_db_upsert</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Charlie"</span><span class="op">)</span>, conflict_columns <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Upserted 1 row into users</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_db_delete.html">sb_db_delete</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Deleted 1 row from users</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_db_disconnect.html">sb_db_disconnect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Disconnected</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="rest-api-backend-1">REST API Backend<a class="anchor" aria-label="anchor" href="#rest-api-backend-1"></a>
+</h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/sb_api_connect.html">sb_api_connect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ API credentials set for https://xxx.supabase.co</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_api_tables.html">sb_api_tables</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_schema.html">sb_api_schema</a></span><span class="op">(</span><span class="st">"users"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_read.html">sb_api_read</a></span><span class="op">(</span><span class="st">"users"</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Query with operators (same vocabulary as DBI)</span></span>
+<span><span class="fu"><a href="reference/sb_api_query.html">sb_api_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_query.html">sb_api_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>gt <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_query.html">sb_api_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>like <span class="op">=</span> <span class="st">"A%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_query.html">sb_api_query</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"in"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Write</span></span>
+<span><span class="fu"><a href="reference/sb_api_insert.html">sb_api_insert</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Alice"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_update.html">sb_api_update</a></span><span class="op">(</span><span class="st">"users"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Bob"</span><span class="op">)</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_upsert.html">sb_api_upsert</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Charlie"</span><span class="op">)</span>, conflict_columns <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sb_api_delete.html">sb_api_delete</a></span><span class="op">(</span><span class="st">"users"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sb_api_disconnect.html">sb_api_disconnect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ API credentials cleared</span></span></code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Raw SQL (<code>sql =</code> parameter) is supported only by the DBI backend. <code><a href="reference/sb_api_query.html">sb_api_query()</a></code> uses PostgREST filter operators instead.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="operators">Operators<a class="anchor" aria-label="anchor" href="#operators"></a>
 </h2>
-<p>Use nested lists in <code>where</code> for operators beyond <code>=</code>:</p>
+<p>Use nested lists in <code>where</code> for operators beyond <code>=</code>. Works identically in both backends:</p>
 <table class="table">
 <thead><tr class="header">
 <th>Operator</th>
 <th>Example</th>
-<th>SQL</th>
+<th>SQL / PostgREST</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -151,12 +246,12 @@
 <tr class="even">
 <td><code>neq</code></td>
 <td><code>list(id = list(neq = 1))</code></td>
-<td><code>id &lt;&gt;1</code></td>
+<td><code>id &lt;&gt; 1</code></td>
 </tr>
 <tr class="odd">
 <td><code>gt</code></td>
 <td><code>list(age = list(gt = 18))</code></td>
-<td><code>age &gt;18</code></td>
+<td><code>age &gt; 18</code></td>
 </tr>
 <tr class="even">
 <td><code>gte</code></td>
@@ -185,7 +280,7 @@
 </tr>
 <tr class="odd">
 <td><code>in</code></td>
-<td><code>list(id = list("in" = c(1,2)))</code></td>
+<td><code>list(id = list("in" = c(1, 2)))</code></td>
 <td><code>id IN (1, 2)</code></td>
 </tr>
 <tr class="even">
@@ -200,8 +295,9 @@
 <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
 </h2>
 <div class="section level3">
-<h3 id="unified-api-auto-dispatches-to-dbi-or-rest">Unified API (auto-dispatches to DBI or REST)<a class="anchor" aria-label="anchor" href="#unified-api-auto-dispatches-to-dbi-or-rest"></a>
+<h3 id="unified-api">Unified API<a class="anchor" aria-label="anchor" href="#unified-api"></a>
 </h3>
+<p>Auto-dispatches to DBI or REST based on available credentials.</p>
 <table class="table">
 <thead><tr class="header">
 <th>Function</th>
@@ -218,7 +314,7 @@
 </tr>
 <tr class="odd">
 <td><code><a href="reference/sb_status.html">sb_status()</a></code></td>
-<td>Connection status</td>
+<td>Connection status for both backends</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/sb_tables.html">sb_tables()</a></code></td>
@@ -264,7 +360,7 @@
 </table>
 </div>
 <div class="section level3">
-<h3 id="dbi-backend">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend"></a>
+<h3 id="dbi-backend-2">DBI Backend<a class="anchor" aria-label="anchor" href="#dbi-backend-2"></a>
 </h3>
 <table class="table">
 <thead><tr class="header">
@@ -274,7 +370,7 @@
 <tbody>
 <tr class="odd">
 <td><code><a href="reference/sb_db_connect.html">sb_db_connect()</a></code></td>
-<td>Connect to Supabase</td>
+<td>Connect via PostgreSQL/DBI</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/sb_db_disconnect.html">sb_db_disconnect()</a></code></td>
@@ -282,7 +378,7 @@
 </tr>
 <tr class="odd">
 <td><code><a href="reference/sb_db_status.html">sb_db_status()</a></code></td>
-<td>Connection status</td>
+<td>DBI connection status</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/sb_db_tables.html">sb_db_tables()</a></code></td>
@@ -327,6 +423,74 @@
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="rest-api-backend-2">REST API Backend<a class="anchor" aria-label="anchor" href="#rest-api-backend-2"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="43%">
+<col width="56%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="reference/sb_api_connect.html">sb_api_connect()</a></code></td>
+<td>Connect via Supabase REST API</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/sb_api_disconnect.html">sb_api_disconnect()</a></code></td>
+<td>Clear stored credentials</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/sb_api_status.html">sb_api_status()</a></code></td>
+<td>API connection status</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/sb_api_tables.html">sb_api_tables()</a></code></td>
+<td>List tables via OpenAPI spec</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/sb_api_table_exists.html">sb_api_table_exists()</a></code></td>
+<td>Check if table exists</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/sb_api_schema.html">sb_api_schema()</a></code></td>
+<td>Get table schema via OpenAPI spec</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/sb_api_read.html">sb_api_read()</a></code></td>
+<td>Read table data</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/sb_api_query.html">sb_api_query()</a></code></td>
+<td>Query with filters</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/sb_api_insert.html">sb_api_insert()</a></code></td>
+<td>Insert rows</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/sb_api_update.html">sb_api_update()</a></code></td>
+<td>Update rows</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/sb_api_upsert.html">sb_api_upsert()</a></code></td>
+<td>Insert or update rows</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/sb_api_delete.html">sb_api_delete()</a></code></td>
+<td>Delete rows</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/sb_api_truncate.html">sb_api_truncate()</a></code></td>
+<td>Delete all rows (requires secret key or RLS disabled)</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="supported-features">Supported Features<a class="anchor" aria-label="anchor" href="#supported-features"></a>
@@ -334,7 +498,7 @@
 <ul class="task-list">
 <li><label><input type="checkbox" checked>CRUD via DBI (<code>sb_db_*</code>)</label></li>
 <li><label><input type="checkbox" checked>Unified API with auto-dispatch (<code>sb_*</code>)</label></li>
-<li><label><input type="checkbox">CRUD via REST (<code>sb_api_*</code>)</label></li>
+<li><label><input type="checkbox" checked>CRUD via REST (<code>sb_api_*</code>)</label></li>
 <li><label><input type="checkbox">Authentication (<code>sb_auth_*</code>)</label></li>
 <li><label><input type="checkbox">Storage (<code>sb_storage_*</code>)</label></li>
 <li><label><input type="checkbox">Realtime subscriptions (<code>sb_realtime_*</code>)</label></li>
@@ -381,6 +545,7 @@
 <ul class="list-unstyled">
 <li>
 <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a> <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Maciej Banas <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -397,7 +562,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a>.</p>
+  <p>Developed by <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a>, Maciej Banas.</p>
 </div>
 
 <div class="pkgdown-footer-right">

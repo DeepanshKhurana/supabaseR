@@ -52,7 +52,7 @@
 <ul><li>
 <code><a href="../reference/sb_db_connect.html">sb_db_connect()</a></code> / <code><a href="../reference/sb_db_disconnect.html">sb_db_disconnect()</a></code>: connection management with cli feedback</li>
 <li>
-<code><a href="../reference/sb_db_status.html">sb_db_status()</a></code>: check DBI/API backend availability</li>
+<code><a href="../reference/sb_db_status.html">sb_db_status()</a></code>: DBI connection status</li>
 <li>
 <code><a href="../reference/sb_db_tables.html">sb_db_tables()</a></code>, <code><a href="../reference/sb_db_table_exists.html">sb_db_table_exists()</a></code>, <code><a href="../reference/sb_db_schema.html">sb_db_schema()</a></code>: table metadata</li>
 <li>
@@ -65,6 +65,23 @@
 <code><a href="../reference/sb_db_upsert.html">sb_db_upsert()</a></code>: insert or update with conflict handling</li>
 <li>Backend detection on package load with status display</li>
 <li>cli-powered success messages for all write operations</li>
+<li>Full REST API backend via httr2 / PostgREST:
+<ul><li>
+<code><a href="../reference/sb_api_connect.html">sb_api_connect()</a></code>, <code><a href="../reference/sb_api_disconnect.html">sb_api_disconnect()</a></code>, <code><a href="../reference/sb_api_status.html">sb_api_status()</a></code>: credential and session management</li>
+<li>
+<code><a href="../reference/sb_api_read.html">sb_api_read()</a></code>, <code><a href="../reference/sb_api_query.html">sb_api_query()</a></code>: read and filter table data</li>
+<li>
+<code><a href="../reference/sb_api_tables.html">sb_api_tables()</a></code>, <code><a href="../reference/sb_api_table_exists.html">sb_api_table_exists()</a></code>, <code><a href="../reference/sb_api_schema.html">sb_api_schema()</a></code>: table metadata via PostgREST OpenAPI spec</li>
+<li>
+<code><a href="../reference/sb_api_insert.html">sb_api_insert()</a></code>, <code><a href="../reference/sb_api_update.html">sb_api_update()</a></code>, <code><a href="../reference/sb_api_delete.html">sb_api_delete()</a></code>, <code><a href="../reference/sb_api_upsert.html">sb_api_upsert()</a></code>, <code><a href="../reference/sb_api_truncate.html">sb_api_truncate()</a></code>: write operations</li>
+</ul></li>
+<li>
+<code>SUPABASE_SECRET_KEY</code> / <code>SUPABASE_ROLE_KEY</code> automatically preferred over anon key for all API requests (bypasses Row Level Security)</li>
+<li>
+<code>SUPABASE_SCHEMA</code> env var honoured by both backends via <code><a href="../reference/get_schema.html">get_schema()</a></code>
+</li>
+<li>Legacy JWT key deprecation warnings on load and on <code><a href="../reference/sb_api_connect.html">sb_api_connect()</a></code>, with link to <a href="https://github.com/orgs/supabase/discussions/29260" class="external-link">key migration guide</a>
+</li>
 </ul></div>
 <div class="section level3">
 <h3 id="internal-0-1-0">Internal<a class="anchor" aria-label="anchor" href="#internal-0-1-0"></a></h3>
@@ -83,7 +100,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a>.</p>
+  <p>Developed by <a href="https://github.com/deepanshkhurana" class="external-link">Deepansh Khurana</a>, Maciej Banas.</p>
 </div>
 
 <div class="pkgdown-footer-right">
