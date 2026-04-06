@@ -1,8 +1,10 @@
 Package: supabaseR
 Title: CRUD utils in R for Supabase
 Version: 0.1.0.9000
-Authors@R: 
-    person("Deepansh", "Khurana", , "deepanshkhurana@outlook.com", role = c("aut", "cre"))
+Authors@R: c(
+    person("Deepansh", "Khurana", , "deepanshkhurana@outlook.com", role = c("aut", "cre")),
+    person("Maciej", "Banas", , "banasmaciek@gmail.com", role = "aut")
+  )
 Description: supabaseR is an open-source package, designed to be as basic as possible to help with CRUD utils in R for Supabase.
 License: MIT + file LICENSE
 URL: https://deepanshkhurana.github.io/supabaseR/, https://github.com/DeepanshKhurana/supabaseR
@@ -14,7 +16,10 @@ Imports:
     checkmate,
     cli,
     DBI,
+    dplyr,
     glue,
+    httr2,
+    jsonlite,
     RPostgres
 Suggests: 
     testthat (>= 3.0.0),

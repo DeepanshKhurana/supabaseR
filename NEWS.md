@@ -16,6 +16,7 @@
 * `sb_db_upsert()`: insert or update with conflict handling
 * Backend detection on package load with status display
 * cli-powered success messages for all write operations
+* `sb_api_connect()`: API connection with token validation
 
 ## Internal
 
