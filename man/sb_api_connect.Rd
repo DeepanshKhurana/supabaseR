@@ -6,7 +6,7 @@
 \usage{
 sb_api_connect(
   url = Sys.getenv("SUPABASE_URL"),
-  key = Sys.getenv("SUPABASE_KEY")
+  key = Sys.getenv("SUPABASE_ANON_KEY")
 )
 }
 \arguments{

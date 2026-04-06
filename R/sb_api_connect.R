@@ -5,8 +5,8 @@
 #' @return Invisible list with API credentials
 #' @export
 sb_api_connect <- function(
-    url = Sys.getenv("SUPABASE_URL"),
-    key = Sys.getenv("SUPABASE_ANON_KEY")
+  url = Sys.getenv("SUPABASE_URL"),
+  key = Sys.getenv("SUPABASE_ANON_KEY")
 ) {
   if (url == "" || key == "") {
     stop(
