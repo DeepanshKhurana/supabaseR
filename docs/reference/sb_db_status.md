@@ -1,6 +1,6 @@
-# Check available backends
+# Check DBI backend status
 
-Check available backends
+Check DBI backend status
 
 ## Usage
 
@@ -10,4 +10,4 @@ sb_db_status()
 
 ## Value
 
-A list with backend availability
+A list with DBI connection info
