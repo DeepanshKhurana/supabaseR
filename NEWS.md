@@ -1,38 +1,25 @@
-# supabaseR 0.1.0 (development)
+# supabaseR 1.0.0 (2026-04-07)
 
-## Breaking Changes
+## Breaking changes
 
-* Complete API redesign: all functions renamed from `get_*`/`put_*` to `sb_db_*` prefix
-* Removed deprecated functions: `get_table_data`, `put_table_row`, `delete_table_row`, etc.
-* Removed renv dependency management
+* All functions renamed from `get_*` / `put_*` to namespaced `sb_db_*`, `sb_api_*`, and `sb_*` prefixes. Legacy functions removed.
 
-## New Features
+## New features
 
-* `sb_db_connect()` / `sb_db_disconnect()`: connection management with cli feedback
-* `sb_db_status()`: DBI connection status
-* `sb_db_tables()`, `sb_db_table_exists()`, `sb_db_schema()`: table metadata
-* `sb_db_read()`: read table data with optional limit
-* `sb_db_query()`: query with `where` operators (gt, lt, like, in, etc.) or raw SQL
-* `sb_db_insert()`, `sb_db_update()`, `sb_db_delete()`, `sb_db_truncate()`: CRUD operations
-* `sb_db_upsert()`: insert or update with conflict handling
-* Backend detection on package load with status display
-* cli-powered success messages for all write operations
-* Full REST API backend via httr2 / PostgREST:
-  - `sb_api_connect()`, `sb_api_disconnect()`, `sb_api_status()`: credential and session management
-  - `sb_api_read()`, `sb_api_query()`: read and filter table data
-  - `sb_api_tables()`, `sb_api_table_exists()`, `sb_api_schema()`: table metadata via PostgREST OpenAPI spec
-  - `sb_api_insert()`, `sb_api_update()`, `sb_api_delete()`, `sb_api_upsert()`, `sb_api_truncate()`: write operations
-* `SUPABASE_SECRET_KEY` / `SUPABASE_ROLE_KEY` automatically preferred over anon key for all API requests (bypasses Row Level Security)
-* `SUPABASE_SCHEMA` env var honoured by both backends via `get_schema()`
-* Legacy JWT key deprecation warnings on load and on `sb_api_connect()`, with link to [key migration guide](https://github.com/orgs/supabase/discussions/29260)
+* Dual-backend design: DBI/PostgreSQL (`sb_db_*`) and Supabase REST API (`sb_api_*`), with unified wrappers (`sb_*`) that auto-dispatch.
+* Full CRUD for both backends: `read`, `query`, `insert`, `update`, `upsert`, `delete`, `truncate`.
+* Table metadata helpers: `tables`, `table_exists`, `schema`.
+* `where` filter operators across both backends: `gt`, `lt`, `gte`, `lte`, `neq`, `like`, `ilike`, `in`, `is`. Raw SQL supported on the DBI backend.
+* All four Supabase key formats supported. Secret / service-role keys bypass Row Level Security (RLS) automatically. Deprecation warnings for legacy JWT keys.
+* `SUPABASE_SCHEMA` env var honoured by both backends via `get_schema()`.
+* CLI startup message on load showing which backends are detected.
+* `pkgdown` documentation website at [deepanshkhurana.github.io/supabaseR](https://deepanshkhurana.github.io/supabaseR/reference/index.html)
 
-## Internal
+## Bug fixes and improvements
 
-* Use `glue::glue_sql()` for all SQL construction
-* Add `build_where()` helper for operator support
-* Add comprehensive test coverage with testthat 3.0 snapshots
+* SQL construction uses `glue::glue_sql()` throughout to prevent injection.
+* 100% test coverage via `testthat` 3 with `mockery` stubs; no live database required.
 
 # supabaseR 0.0.1
 
-* Initial release with basic CRUD functions
-* Environment variable configuration
+* Initial release with basic CRUD functions and environment variable configuration.

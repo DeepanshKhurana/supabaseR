@@ -1,5 +1,14 @@
 url: https://deepanshkhurana.github.io/supabaseR/
 
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+    components:
+      community:
+        title: Community
+        text: |
+          [Contributing](CONTRIBUTING.html)
+
 template:
   bootstrap: 5
   light-switch: false

@@ -4,10 +4,12 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.lintr$
-^CANDOR\.md$
+^AI-DECLARATION\.md$
 ^CONTRIBUTING\.md$
 ^test_operations\.R$
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
