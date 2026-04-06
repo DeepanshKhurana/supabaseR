@@ -1,6 +1,9 @@
 # Get connection status
 
-Get connection status
+Returns availability and connection state for both backends, the active
+backend (if
+[`sb_connect()`](https://deepanshkhurana.github.io/supabaseR/reference/sb_connect.md)
+has been called), and the current schema.
 
 ## Usage
 
@@ -10,4 +13,4 @@ sb_status()
 
 ## Value
 
-List with connection info
+A list with `dbi`, `api`, `backend`, and `schema` entries

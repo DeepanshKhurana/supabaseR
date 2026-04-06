@@ -3,7 +3,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/deepanshkhurana/supabaseR/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/deepanshkhurana/supabaseR/actions/workflows/R-CMD-check.yml)
 [![pkgdown](https://github.com/deepanshkhurana/supabaseR/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/deepanshkhurana/supabaseR/actions/workflows/pkgdown.yml)
-[![CANDOR: pair](https://img.shields.io/badge/䷼%20CANDOR-pair-fef9c3?labelColor=fef9c3)](https://candor.md)
+[![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)](https://candor.md)
 <!-- badges: end -->
 
 The unofficial R package for Supabase. It supports a **dual-backend** design: a DBI/PostgreSQL backend for direct database access and a REST API backend via PostgREST. Both backends expose identical function signatures — unified `sb_*` wrappers auto-dispatch to whichever backend is available, or you can call `sb_db_*` / `sb_api_*` directly.
