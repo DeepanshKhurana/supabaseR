@@ -25,7 +25,6 @@ sb_api_tables <- function(
   spec <- httr2::resp_body_json(response)
   paths <- names(spec$paths)
 
-  # Keep only single-segment paths (table endpoints), strip /rpc/ entries
   table_paths <- paths[
     grepl("^/[^/]+$", paths) & !grepl("^/rpc/", paths)
   ]

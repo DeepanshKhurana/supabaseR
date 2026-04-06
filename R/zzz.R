@@ -23,9 +23,6 @@
   secret_key <- Sys.getenv("SUPABASE_SECRET_KEY")
   if (nchar(secret_key) == 0) secret_key <- Sys.getenv("SUPABASE_ROLE_KEY")
 
-  # API is available when a URL and at least one key (anon or secret) are set.
-  # The secret key has more privileges and is always preferred for requests when
-  # both are present.
   if (nchar(api_url) > 0 && (nchar(api_key) > 0 || nchar(secret_key) > 0)) {
     .sb_env$api_available <- TRUE
     .sb_env$api_url <- api_url

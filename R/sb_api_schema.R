@@ -27,8 +27,6 @@ sb_api_schema <- function(
 
   spec <- httr2::resp_body_json(response)
 
-  # PostgREST 12+ (OpenAPI 3.0): components/schemas
-  # Older versions (Swagger 2.0): definitions
   props <- spec$components$schemas[[table]]$properties %||%
     spec$definitions[[table]]$properties
 

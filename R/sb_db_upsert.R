@@ -33,8 +33,6 @@ sb_db_upsert <- function(
   col_list <- DBI::SQL(glue::glue_collapse(cols, sep = ", "))
   conflict_list <- DBI::SQL(glue::glue_collapse(conflict_columns, sep = ", "))
 
-  # Build VALUES placeholders
-
   values_list <- apply(data, 1, function(row) {
     vals <- mapply(function(v) {
       if (is.na(v)) "NULL" else glue::glue_sql("{v}", .con = conn)
@@ -43,7 +41,6 @@ sb_db_upsert <- function(
   })
   values_sql <- DBI::SQL(glue::glue_collapse(values_list, sep = ", "))
 
-  # Build SET clause for update
   set_clause <- DBI::SQL(glue::glue_collapse(
     sapply(update_cols, function(col) glue::glue("{col} = EXCLUDED.{col}")),
     sep = ", "
