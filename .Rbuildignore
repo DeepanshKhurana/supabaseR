@@ -4,3 +4,5 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 .lintr
+^CANDOR\.md$
+^test_operations\.R$
