@@ -26,12 +26,20 @@ Supabase now issues four types of API keys. All are supported:
 
 ### DBI Backend
 
+> 💡 **Connection Modes**: Get credentials from the **Connect** tab in
+> your Supabase Dashboard (Project Settings \> Database \> Connection
+> Strings). All three modes work: **Direct Connection**, **Transaction
+> Pooler**, and **Session Pooler**. If Direct connection doesn’t work,
+> try Transaction or Session Pooler. Be sure to use the correct host,
+> user, and password for your chosen mode.
+
 ``` bash
-SUPABASE_HOST=db.xxx.supabase.co
+SUPABASE_HOST=db.xxx.supabase.co # From your chosen connection mode
+SUPABASE_PORT=6543 # optional; defaults to 6543 assuming a pooled connection
 SUPABASE_DBNAME=postgres
-SUPABASE_USER=postgres
+SUPABASE_USER=postgres.xxx # Format varies by connection mode
 SUPABASE_PASSWORD=your_password
-SUPABASE_SCHEMA=public          # optional; defaults to "public"
+SUPABASE_SCHEMA=public # optional; defaults to "public"
 ```
 
 ### REST API Backend
@@ -40,7 +48,7 @@ SUPABASE_SCHEMA=public          # optional; defaults to "public"
 # New-format keys (recommended)
 SUPABASE_URL=https://xxx.supabase.co
 SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
-SUPABASE_SECRET_KEY=sb_secret_...   # optional; bypasses RLS when present
+SUPABASE_SECRET_KEY=sb_secret_... # optional; bypasses RLS when present
 
 # Legacy JWT keys (still supported; deprecation warning shown on load)
 # SUPABASE_ANON_KEY=eyJ...
@@ -52,9 +60,9 @@ which are detected:
 
 ``` r
 library(supabaseR)
-#> supabaseR v1.0.0
-#>   DBI Backend: ✔
-#>   API Backend: ✔
+> supabaseR v1.0.0
+>   DBI Backend: ✔
+>   API Backend: ✔
 ```
 
 ## Quick Start
@@ -65,7 +73,7 @@ to auto-detect the best available backend, then call the unified `sb_*`
 wrappers:
 
 ``` r
-sb_connect()           # picks DBI if available, otherwise REST API
+sb_connect() # picks DBI if available, otherwise REST API
 
 sb_tables()
 sb_read("users", limit = 10)
@@ -81,7 +89,7 @@ sb_disconnect()
 
 ``` r
 sb_db_connect()
-#> ✔ Connected to db.xxx.supabase.co
+> ✔ Connected to db.xxx.supabase.co
 
 sb_db_tables()
 sb_db_schema("users")
@@ -98,26 +106,26 @@ sb_db_query(sql = "SELECT * FROM public.users WHERE id = 1")
 
 # Write
 sb_db_insert("users", data.frame(name = "Alice"))
-#> ✔ Inserted 1 row into users
+> ✔ Inserted 1 row into users
 
 sb_db_update("users", data = list(name = "Bob"), where = list(id = 1))
-#> ✔ Updated 1 row in users
+> ✔ Updated 1 row in users
 
 sb_db_upsert("users", data.frame(id = 1, name = "Charlie"), conflict_columns = "id")
-#> ✔ Upserted 1 row into users
+> ✔ Upserted 1 row into users
 
 sb_db_delete("users", where = list(id = 1))
-#> ✔ Deleted 1 row from users
+> ✔ Deleted 1 row from users
 
 sb_db_disconnect()
-#> ✔ Disconnected
+> ✔ Disconnected
 ```
 
 ## REST API Backend
 
 ``` r
 sb_api_connect()
-#> ✔ API credentials set for https://xxx.supabase.co
+> ✔ API credentials set for https://xxx.supabase.co
 
 sb_api_tables()
 sb_api_schema("users")
@@ -136,7 +144,7 @@ sb_api_upsert("users", data.frame(id = 1, name = "Charlie"), conflict_columns = 
 sb_api_delete("users", where = list(id = 1))
 
 sb_api_disconnect()
-#> ✔ API credentials cleared
+> ✔ API credentials cleared
 ```
 
 > **Note:** Raw SQL (`sql =` parameter) is supported only by the DBI
