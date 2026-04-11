@@ -26,11 +26,11 @@ Supabase now issues four types of API keys. All are supported:
 
 ### DBI Backend
 
-**Connection Modes**: Get credentials from the **Connect** tab in your
-Supabase Dashboard (Project Settings \> Database \> Connection Strings).
-All three modes work: **Direct Connection**, **Transaction Pooler**, and
-**Session Pooler**. If Direct connection doesn’t work, try Transaction
-or Session Pooler. Be sure to use the correct host, user, and password
+Get credentials from the `Connect` tab in your Supabase Dashboard.
+
+All three modes should work depending on your configuration. If
+`Direct Connection` doesn’t work, try `Transaction Pooler` or
+`Session Pooler`. Be sure to use the correct host, user, and password
 for your chosen mode.
 
 ``` bash
