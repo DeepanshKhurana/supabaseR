@@ -8,6 +8,21 @@ is available, or you can call `sb_db_*` / `sb_api_*` directly.
 
 ## Installation
 
+### From CRAN
+
+``` r
+# Install directly
+install.packages("supabaseR")
+
+# Set a mirror explicitly
+install.packages(
+  "supabaseR",
+  repos = "https://cloud.r-project.org/"
+)
+```
+
+### Development
+
 ``` r
 # install.packages("remotes")
 remotes::install_github("deepanshkhurana/supabaseR")

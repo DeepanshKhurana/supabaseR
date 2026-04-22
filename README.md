@@ -10,6 +10,21 @@ The unofficial R package for Supabase. It supports a **dual-backend** design: a 
 
 ## Installation
 
+### From CRAN
+
+```r
+# Install directly
+install.packages("supabaseR")
+
+# Set a mirror explicitly
+install.packages(
+  "supabaseR",
+  repos = "https://cloud.r-project.org/"
+)
+```
+
+### Development
+
 ```r
 # install.packages("remotes")
 remotes::install_github("deepanshkhurana/supabaseR")

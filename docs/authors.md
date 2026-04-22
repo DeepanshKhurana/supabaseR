@@ -12,13 +12,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/DeepanshKhurana/supabaseR/blob/HEAD/DESCRIPTION)
 
-Khurana D, Banas M (2026). *supabaseR: CRUD utils in R for Supabase*. R
-package version 1.0.0, <https://deepanshkhurana.github.io/supabaseR/>.
+Khurana D, Banas M (2026). *supabaseR: 'CRUD' Utils in 'R' for
+'Supabase'*. R package version 1.0.1,
+<https://deepanshkhurana.github.io/supabaseR/>.
 
     @Manual{,
-      title = {supabaseR: CRUD utils in R for Supabase},
+      title = {supabaseR: 'CRUD' Utils in 'R' for 'Supabase'},
       author = {Deepansh Khurana and Maciej Banas},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.0.1},
       url = {https://deepanshkhurana.github.io/supabaseR/},
     }

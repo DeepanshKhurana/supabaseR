@@ -1,6 +1,16 @@
 # Changelog
 
+## supabaseR 1.0.1 (2026-04-22)
+
+### Documentation
+
+- Updated `README` with
+  [CRAN](https://cran.r-project.org/web/packages/supabaseR/index.html)
+  installation instructions as the primary installation method.
+
 ## supabaseR 1.0.0 (2026-04-07)
+
+CRAN release: 2026-04-21
 
 ### Breaking changes
 
