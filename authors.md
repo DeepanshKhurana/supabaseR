@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/DeepanshKhurana/supabaseR/blob/v1.0.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/DeepanshKhurana/supabaseR/blob/main/DESCRIPTION)
 
 Khurana D, Banas M (2026). *supabaseR: 'CRUD' Utils in 'R' for
 'Supabase'*. R package version 1.0.1,

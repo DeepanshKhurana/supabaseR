@@ -21,7 +21,7 @@ install.packages(
 )
 ```
 
-### Development version:
+### Development
 
 ``` r
 # install.packages("remotes")
