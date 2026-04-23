@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/deepanshkhurana/supabaseR/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/deepanshkhurana/supabaseR/actions/workflows/R-CMD-check.yml)
 [![pkgdown](https://github.com/deepanshkhurana/supabaseR/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/deepanshkhurana/supabaseR/actions/workflows/pkgdown.yml)
+[![supabaseR status badge](https://deepanshkhurana.r-universe.dev/supabaseR/badges/version)](https://deepanshkhurana.r-universe.dev/supabaseR)
 [![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)
 <!-- badges: end -->
 

@@ -3,6 +3,7 @@
 ## Documentation
 
 * Updated `README` with [CRAN](https://cran.r-project.org/web/packages/supabaseR/index.html) installation instructions as the primary installation method.
+* Updated `README` with [R-universe](https://deepanshkhurana.r-universe.dev/badges) badge.
 
 # supabaseR 1.0.0 (2026-04-07)
 
